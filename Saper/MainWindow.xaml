@@ -5,6 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+        Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
+    <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Gameboard part of the window -->
+        <Border Grid.Column="0" Background="Aqua">
+            <Viewbox Stretch="Uniform" Margin="10">
+                <Grid Name="GameboardGrid" Background="Blue" Height="1" Width="1">
+                    <!-- Here goes gameboard's cells -->
+                </Grid>
+            </Viewbox>
+        </Border>
+
+        <!-- Player menu, buffs, skills, informations -->
+        <Grid Name="MenuGrid" Grid.Column="1" Background="Green">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Current game information -->
+            <Grid Grid.Row="0" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row ="0" Content="Time: 00:00.00" VerticalAlignment="Stretch"></Label>
+                <Label Grid.Row="1" Content="Mines: 0" VerticalAlignment="Stretch"></Label>
+                <Label Grid.Row="2" Content="Fields: 0" VerticalAlignment="Stretch"></Label>
+            </Grid>
+
+            <!-- Player Buffs -->
+            <Grid Grid.Row="1" Margin="5" Background="Lime">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="0" Stretch="Uniform" Margin="5">
+                    <Grid Background="Red" Height="1" Width="1"></Grid>
+                </Viewbox>
+
+                <Viewbox Grid.Column="1" Stretch="Uniform" Margin="5">
+                    <Grid Background="Pink" Height="1" Width="1"></Grid>
+                </Viewbox>
+            </Grid>
+            
+            <!-- Game Menu -->
+            <Grid Grid.Row="2" Background="AliceBlue" Margin="5" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <Label  Grid.Row="0" Content="Menu" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                <Button Name="OptionsButton" Grid.Row="1" Content="Options..." Margin="5"></Button>
+                <Button Name="NewGameButton" Grid.Row="2" Content="New Game..." Margin="5"></Button>
+                <Button Name="WatchRecordedGameButton" Grid.Row="3" Content="Watch Recorded Game..." Margin="5"></Button>
+            </Grid>
+                  
+        </Grid>
+    </Grid>
+
 </Window>
