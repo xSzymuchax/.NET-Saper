@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Saper.View"
         mc:Ignorable="d"
-        Title="OptionsView" Height="450" Width="800">
-    <Grid>
-        
+        Title="OptionsView" 
+        Height="300" MinHeight="300" MaxHeight="300" 
+        Width="200" MinWidth="200" MaxWidth="200"
+        >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" Margin="10"/>
+        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" Margin="10"/>
+
+        <Button Grid.Row="2" Name="ChangeRecordDestinationButton" Content="Change record destination" Margin="10"></Button>
+        <Button Grid.Row="3" Name="CloseWindowButton" Content="Save and Close" Margin="10"></Button>
     </Grid>
 </Window>
