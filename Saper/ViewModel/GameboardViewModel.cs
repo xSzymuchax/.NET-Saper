@@ -18,15 +18,23 @@ namespace Saper.ViewModel
 
         public int Width => _gameboard.Width;
 
-        public GameboardViewModel()
+        public GameboardViewModel(int x_size, int y_size, int mines)
         {
+
+            if (mines >= x_size * y_size)
+            {
+                _gameboard = new GameboardModel(1, 1, 0);
+                return;
+            }
+                
+
             // roboczo
-            _gameboard = new GameboardModel(10, 10, 10);
+            _gameboard = new GameboardModel(x_size, y_size, mines);
             Cells = new ObservableCollection<CellViewModel>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < x_size; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < y_size; j++)
                 {
                     CellViewModel cellViewModel = new CellViewModel(this, i, j, _gameboard.Board[i, j]);
                     Cells.Add(cellViewModel);

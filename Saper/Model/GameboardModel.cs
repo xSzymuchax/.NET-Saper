@@ -61,9 +61,9 @@ namespace Saper.Model
 
         public void CountSurroundingMines()
         {
-            for (int i = 0; i < Height; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < Width; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     // if on mine cell
                     if (Board[i, j].Value == -1)
@@ -80,7 +80,7 @@ namespace Saper.Model
                                 continue;
 
                             // non-existing cell
-                            if (i2 < 0 || j2 < 0 || i2 >= Height || j2 >= Width)
+                            if (i2 < 0 || j2 < 0 || i2 >= Width || j2 >= Height)
                                 continue;
 
                             if (Board[i2, j2].Value == -1)
