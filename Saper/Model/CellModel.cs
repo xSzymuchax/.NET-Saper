@@ -12,9 +12,9 @@ namespace Saper.Model
         private bool _isFlagged = false;
         private bool _isFlipped = false;
         private int _value = 0;
-        public bool IsFlagged {get { return _isFlagged; } private set { _isFlagged = value; }}
-        public int Value { get { return _value; } private set { _value = value; } }
-        public bool IsFlipped { get { return _isFlipped; } private set { _isFlipped = value; } }
+        public bool IsFlagged {get { return _isFlagged; }  set { _isFlagged = value; }}
+        public int Value { get { return _value; }  set { _value = value; } }
+        public bool IsFlipped { get { return _isFlipped; }  set { _isFlipped = value; } }
 
         public void FlipCell()
         {

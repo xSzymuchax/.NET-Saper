@@ -125,5 +125,13 @@ namespace Saper.Model
             }   
         }
 
+        public void FlagCell(int x, int y)
+        {
+            if (!Board[x, y].IsFlipped)
+            {
+                Board[x, y].FlagCell();
+            }
+        }
+
     }
 }

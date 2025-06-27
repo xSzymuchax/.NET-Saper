@@ -1,0 +1,84 @@
+﻿using Saper.Command;
+using Saper.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace Saper.ViewModel
+{
+    public class CellViewModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private GameboardViewModel _gameboard;
+        private int _x;
+        private int _y;
+        private CellModel _cell;
+
+        ICommand FlipCommand;
+        ICommand FlagCommand;
+
+        public int X { get { return _x; } }
+        public int Y { get { return _y; } }
+
+        public bool IsFlagged 
+        { 
+            get => _cell.IsFlagged; 
+        
+            set
+            {
+                if (!_cell.IsFlipped)
+                {
+                    _cell.IsFlagged = !_cell.IsFlagged;
+                    OnPropertyChanged();
+                }
+                    
+            }
+        }
+
+        public bool IsFlipped
+        {
+            get => _cell.IsFlipped;
+
+            set
+            {
+                if (!_cell.IsFlagged && !_cell.IsFlipped)
+                {
+                    _cell.IsFlipped = true;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public CellViewModel(GameboardViewModel gameboardViewModel, int x, int y, CellModel cell)
+        {
+            _gameboard = gameboardViewModel;
+            _x = x;
+            _y = y;
+            _cell = cell;
+
+            FlipCommand = new RelayCommand(FlipCell, o => true);
+            FlagCommand = new RelayCommand(FlagCell, o => true);
+        }
+
+        public void FlipCell(object obj)
+        {
+            _gameboard.FlipCell(_x, _y);
+        }
+
+        public void FlagCell(object obj)
+        {
+            _gameboard.FlagCell(_x, _y);
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
