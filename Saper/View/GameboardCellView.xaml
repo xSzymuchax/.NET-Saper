@@ -20,7 +20,19 @@
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     FontSize="70"
-                    Command="{Binding FlipCommand}"/>
+                    Command="{Binding FlipCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFlipped}" Value="true">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <Border Width="100" Height="100" Visibility="Hidden">
                 <Label Content="{Binding Value}"
