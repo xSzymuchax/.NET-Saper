@@ -16,6 +16,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <Border Width="100" Height="100">
+                <Label Content="{Binding Value}"
+                       FontSize="70"
+                       HorizontalContentAlignment="Center"
+                       VerticalAlignment="Center">  
+                </Label>
+            </Border>
+
             <Button Content="{Binding Value}"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
@@ -34,12 +42,7 @@
                 </Button.Style>
             </Button>
 
-            <Border Width="100" Height="100" Visibility="Hidden">
-                <Label Content="{Binding Value}"
-                       FontSize="70"
-                       HorizontalContentAlignment="Center"
-                       VerticalAlignment="Center"/>
-            </Border>
+            
         </Grid>
     </Viewbox>
     
