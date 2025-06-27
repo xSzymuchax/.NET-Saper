@@ -15,19 +15,19 @@
         <!-- Gameboard part of the window -->
         <Border Grid.Column="0" Background="Aqua">
             <Viewbox Stretch="Uniform" Margin="10">
-                <Grid Name="GameboardGrid" Background="Blue" Height="11" Width="11">
+                <Grid Name="GameboardGrid" Background="Blue">
                     <!-- Here goes gameboard's cells -->
                     <ItemsControl ItemsSource="{Binding Cells}">
                         <ItemsControl.ItemsPanel>
                         
                             <ItemsPanelTemplate>
-                                <UniformGrid Rows="10" Columns="10" />
+                                <UniformGrid Rows="10" Columns="11" />
                             </ItemsPanelTemplate>
                             
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local1:GameboardCellView DataContext="{Binding}" Height="1" Width="1"/>
+                                <local1:GameboardCellView DataContext="{Binding}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
