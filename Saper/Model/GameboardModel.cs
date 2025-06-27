@@ -71,9 +71,9 @@ namespace Saper.Model
                     
                     int foundMines = 0;
 
-                    for (int i2 = -1; i2 <= 1; i2++)
+                    for (int i2 = i-1; i2 <= i+1; i2++)
                     {
-                        for (int j2=-1; j2 <=1; j2++)
+                        for (int j2=j-1; j2 <=j+1; j2++)
                         {
                             // center
                             if (i == i2 && j == j2)
@@ -108,9 +108,9 @@ namespace Saper.Model
             if (Board[x, y].Value != 0)
                 return;
 
-            for (int i = -1; i <= 1; i++)
+            for (int i = x-1; i <= x+1; i++)
             {
-                for (int j = -1; j <= 1; j++)
+                for (int j = y-1; j <= y+1; j++)
                 {
                     // center
                     if (i == x && j == y)
