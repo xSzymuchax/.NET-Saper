@@ -21,7 +21,7 @@
                         <ItemsControl.ItemsPanel>
                         
                             <ItemsPanelTemplate>
-                                <UniformGrid Rows="10" Columns="11" />
+                                <UniformGrid Rows="{Binding Width}" Columns="{Binding Height}" />
                             </ItemsPanelTemplate>
                             
                         </ItemsControl.ItemsPanel>

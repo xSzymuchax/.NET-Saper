@@ -22,6 +22,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new GameboardViewModel(10, 11, 10);
+        DataContext = new GameboardViewModel(10, 21, 10);
     }
 }
