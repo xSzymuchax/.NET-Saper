@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Saper"
+        xmlns:local="clr-namespace:Saper" xmlns:local1="clr-namespace:Saper.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
     <Grid Name="MainGrid">
@@ -15,8 +15,22 @@
         <!-- Gameboard part of the window -->
         <Border Grid.Column="0" Background="Aqua">
             <Viewbox Stretch="Uniform" Margin="10">
-                <Grid Name="GameboardGrid" Background="Blue" Height="1" Width="1">
+                <Grid Name="GameboardGrid" Background="Blue" Height="10" Width="10">
                     <!-- Here goes gameboard's cells -->
+                    <ItemsControl ItemsSource="{Binding Cells}">
+                        <ItemsControl.ItemsPanel>
+                        
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="10" Columns="10" />
+                            </ItemsPanelTemplate>
+                            
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local1:GameboardCellView DataContext="{Binding}" Height="1" Width="1"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Viewbox>
         </Border>

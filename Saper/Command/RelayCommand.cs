@@ -22,15 +22,11 @@ namespace Saper.Command
 
         public bool CanExecute(object? parameter)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-            return _CanExecute(parameter);
+            return _CanExecute?.Invoke(parameter) ?? true;
         }
 
         public void Execute(object? parameter)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
             _Execute(parameter);
         }
     }

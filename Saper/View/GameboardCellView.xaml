@@ -15,14 +15,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
-            <Button Content=""
+
+            <Button Content="{Binding Value}"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
-                    FontSize="70"/>
+                    FontSize="70"
+                    Command="{Binding FlipCommand}"/>
 
             <Border Width="100" Height="100" Visibility="Hidden">
-                <Label Content="3"
+                <Label Content="{Binding Value}"
                        FontSize="70"
                        HorizontalContentAlignment="Center"
                        VerticalAlignment="Center"/>

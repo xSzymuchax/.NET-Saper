@@ -3,6 +3,7 @@ using Saper.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -20,11 +21,14 @@ namespace Saper.ViewModel
         private int _y;
         private CellModel _cell;
 
-        ICommand FlipCommand;
-        ICommand FlagCommand;
+        private ICommand _flipCommand;
+        private ICommand _flagCommand;
 
         public int X { get { return _x; } }
         public int Y { get { return _y; } }
+        public int Value { get { return _cell.Value; } }
+        public ICommand FlipCommand { get => _flipCommand; set => _flipCommand = value; }
+        public ICommand FlagCommand { get => _flagCommand; set => _flagCommand = value; }
 
         public bool IsFlagged 
         { 
@@ -55,6 +59,8 @@ namespace Saper.ViewModel
             }
         }
 
+
+
         public CellViewModel(GameboardViewModel gameboardViewModel, int x, int y, CellModel cell)
         {
             _gameboard = gameboardViewModel;
@@ -62,12 +68,13 @@ namespace Saper.ViewModel
             _y = y;
             _cell = cell;
 
-            FlipCommand = new RelayCommand(FlipCell, o => true);
+            _flipCommand = new RelayCommand(FlipCell, o => true);
             FlagCommand = new RelayCommand(FlagCell, o => true);
         }
 
         public void FlipCell(object obj)
         {
+            Debug.WriteLine("FlipCommand");
             _gameboard.FlipCell(_x, _y);
         }
 
