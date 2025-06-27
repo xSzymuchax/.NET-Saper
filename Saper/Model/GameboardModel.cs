@@ -117,7 +117,7 @@ namespace Saper.Model
                         continue;
 
                     // non-existing cell
-                    if (i < 0 || j < 0 || i >= Height || j >= Width)
+                    if (i < 0 || j < 0 || i >= Width || j >= Height)
                         continue;
 
                     FlipCell(i, j);
