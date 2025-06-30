@@ -40,6 +40,7 @@ namespace Saper.ViewModel
             _gameboardVM = new GameboardViewModel(1,2,1);
 
             _startNewGameCommand = new RelayCommand(StartNewGame, o => true);
+            _showOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
         }
 
         public void StartNewGame(object param)
@@ -70,7 +71,7 @@ namespace Saper.ViewModel
             else return;
         }
         
-        public void ChangeOptions()
+        public void ChangeOptions(object param)
         {
             OptionsView optionsView = new OptionsView();
             optionsView.ShowDialog();
