@@ -17,11 +17,11 @@
             <Viewbox Stretch="Uniform" Margin="10">
                 <Grid Name="GameboardGrid" Background="Blue">
                     <!-- Here goes gameboard's cells -->
-                    <ItemsControl ItemsSource="{Binding Cells}">
+                    <ItemsControl ItemsSource="{Binding GameboardVM.Cells}">
                         <ItemsControl.ItemsPanel>
                         
                             <ItemsPanelTemplate>
-                                <UniformGrid Rows="{Binding Width}" Columns="{Binding Height}" />
+                                <UniformGrid Rows="{Binding GameboardVM.Width}" Columns="{Binding GameboardVM.Height}" />
                             </ItemsPanelTemplate>
                             
                         </ItemsControl.ItemsPanel>
