@@ -19,9 +19,64 @@ namespace Saper.View
     /// </summary>
     public partial class NewGameView : Window
     {
+        private string _difficulty;
+        private int _width;
+        private int _heigth;
+        private int _mines;
+
+        public string Difficulty { get => _difficulty; private set => _difficulty = value; }
+        public int Width1 { get => _width; private set => _width = value; }
+        public int Heigth { get => _heigth; private set => _heigth = value; }
+        public int Mines { get => _mines; private set => _mines = value; }
+
         public NewGameView()
         {
             InitializeComponent();
+        }
+
+        private void EasyGameStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Difficulty = "easy";
+            DialogResult = true;
+        }
+
+        private void MediumGameStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Difficulty = "medium";
+            DialogResult = true;
+        }
+
+        private void HardGameStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Difficulty = "hard";
+            DialogResult = true;
+        }
+
+        private void ExpertGameStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Difficulty = "expert";
+            DialogResult = true;
+        }
+
+        private void CustomGameStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Difficulty = "custom";
+
+            if (Int32.TryParse(WidthTextbox.Text, out _width) == false)
+            {
+                MessageBox.Show("Bad width!", "Error!");
+            }
+
+            if (Int32.TryParse(HeigthTextbox.Text, out _heigth) == false)
+            {
+                MessageBox.Show("Bad width!", "Error!");
+            }
+
+            if (Int32.TryParse(MinesTextbox.Text, out _mines) == false)
+            {
+                MessageBox.Show("Bad width!", "Error!");
+            }
+            DialogResult = true;
         }
     }
 }

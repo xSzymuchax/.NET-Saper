@@ -22,15 +22,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Name="EasyGameStartButton" Grid.Row="0" Content="Easy" Margin="10"/>
-        <Button Name="MediumGameStartButton" Grid.Row="1" Content="Medium" Margin="10"/>
-        <Button Name="HardGameStartButton" Grid.Row="2" Content="Hard" Margin="10"/>
-        <Button Name="ExpertGameStartButton" Grid.Row="3" Content="Expert" Margin="10"/>
+        <Button Name="EasyGameStartButton" Grid.Row="0" Content="Easy" Margin="10" Click="EasyGameStartButton_Click"/>
+        <Button Name="MediumGameStartButton" Grid.Row="1" Content="Medium" Margin="10" Click="MediumGameStartButton_Click"/>
+        <Button Name="HardGameStartButton" Grid.Row="2" Content="Hard" Margin="10" Click="HardGameStartButton_Click"/>
+        <Button Name="ExpertGameStartButton" Grid.Row="3" Content="Expert" Margin="10" Click="ExpertGameStartButton_Click"/>
 
         <TextBox Name="WidthTextbox" Grid.Row="5" Margin="10" Text="Width..."/>
         <TextBox Name="HeigthTextbox" Grid.Row="6" Margin="10" Text="Heigth..."/>
         <TextBox Name="MinesTextbox" Grid.Row="7" Margin="10" Text="Mines..."/>
-        <Button Name="CustomGameStartButton" Grid.Row="8" Content="Custom" Margin="10"/>
+        <Button Name="CustomGameStartButton" Grid.Row="8" Content="Custom" Margin="10" Click="CustomGameStartButton_Click"/>
           
     </Grid>
 </Window>

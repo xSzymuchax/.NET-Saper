@@ -83,7 +83,10 @@
                 
                 <Label  Grid.Row="0" Content="Menu" VerticalAlignment="Top" HorizontalAlignment="Center" />
                 <Button Name="OptionsButton" Grid.Row="1" Content="Options..." Margin="5"></Button>
-                <Button Name="NewGameButton" Grid.Row="2" Content="New Game..." Margin="5"></Button>
+                <Button Name="NewGameButton" Grid.Row="2" Content="New Game..." Margin="5"
+                        Command="{Binding StartNewGameCommand}">
+                    
+                </Button>
                 <Button Name="WatchRecordedGameButton" Grid.Row="3" Content="Watch Recorded Game..." Margin="5"></Button>
             </Grid>
                   
