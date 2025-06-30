@@ -24,5 +24,10 @@ namespace Saper.View
         {
             InitializeComponent();
         }
+
+        private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

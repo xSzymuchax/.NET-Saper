@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Saper.View"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
 
@@ -20,16 +21,24 @@
                 <Label Content="{Binding Value}"
                        FontSize="70"
                        HorizontalContentAlignment="Center"
-                       VerticalAlignment="Center">  
+                       VerticalAlignment="Center"
+                       BorderBrush="#FFFF00E6"
+                       BorderThickness="1">  
                 </Label>
             </Border>
 
-            <Button Content="{Binding Value}"
+            <Button Content=""
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     FontSize="70"
                     Command="{Binding FlipCommand}">
 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                        <i:InvokeCommandAction Command="{Binding FlagCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -42,6 +51,28 @@
                 </Button.Style>
             </Button>
 
+            <Label Content="F"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Stretch"
+                   FontSize="70"
+                   IsHitTestVisible="False">
+
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFlagged}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </Label.Style>
+                
+            </Label>
             
         </Grid>
     </Viewbox>
