@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
 
         <!-- Gameboard part of the window -->
-        <Border Grid.Column="0" Background="Aqua">
+        <Border Grid.Column="0" Background="{Binding ColorsModel.SystemTheme}">
             <Viewbox Stretch="Uniform" Margin="10">
-                <Grid Name="GameboardGrid" Background="Blue">
+                <Grid Name="GameboardGrid" Background="{Binding ColorsModel.SystemTheme}">
                     <!-- Here goes gameboard's cells -->
                     <ItemsControl ItemsSource="{Binding GameboardVM.Cells}">
                         <ItemsControl.ItemsPanel>

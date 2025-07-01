@@ -20,6 +20,7 @@ namespace Saper.ViewModel
         private ICommand _startNewGameCommand;
         private ICommand _showOptionDialogCommand;
 
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -35,9 +36,14 @@ namespace Saper.ViewModel
         public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }
         public ICommand ShowOptionDialogCommand { get => _showOptionDialogCommand; set => _showOptionDialogCommand = value; }
 
+        public ColorsModel ColorsModel { get => ColorsModel.Instance; }
+
         public MainViewModel()
         {
+            new ColorsModel();
+            Debug.WriteLine("Instancja:" + ColorsModel);
             _gameboardVM = new GameboardViewModel(1,2,1);
+            
 
             _startNewGameCommand = new RelayCommand(StartNewGame, o => true);
             _showOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);

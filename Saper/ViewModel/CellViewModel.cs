@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Saper.ViewModel
 {
@@ -27,9 +28,21 @@ namespace Saper.ViewModel
         public int X { get { return _x; } }
         public int Y { get { return _y; } }
         public int Value { get { return _cell.Value; } }
+
+        public bool HasCounter { 
+            get
+            {
+                if (Value == 0 || Value == -1)
+                    return false;
+                return true;
+            } 
+        }
         public ICommand FlipCommand { get => _flipCommand; set => _flipCommand = value; }
         public ICommand FlagCommand { get => _flagCommand; set => _flagCommand = value; }
-
+        public Brush FontBrush { get => ColorsModel.Instance.SystemColor; }
+        public Brush BorderBrush { get => ColorsModel.Instance.SystemColor; }
+        public Brush UnflippedBrush { get => ColorsModel.Instance.UnflippedCellColor; }
+        public Brush MouseOverUnflippedBrush { get => ColorsModel.Instance.MouseOverUnflippedBrush; }
         public bool IsFlagged 
         { 
             get => _cell.IsFlagged; 

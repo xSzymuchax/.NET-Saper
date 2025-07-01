@@ -22,8 +22,19 @@
                        FontSize="70"
                        HorizontalContentAlignment="Center"
                        VerticalAlignment="Center"
-                       BorderBrush="#FFFF00E6"
-                       BorderThickness="1">  
+                       BorderBrush="{Binding BorderBrush}"
+                       BorderThickness="1">
+
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="{Binding FontBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasCounter}" Value="false">
+                                    <Setter Property="Foreground" Value="Transparent"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
                 </Label>
             </Border>
 
@@ -31,7 +42,8 @@
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     FontSize="70"
-                    Command="{Binding FlipCommand}">
+                    Command="{Binding FlipCommand}"
+                    Background="{Binding UnflippedBrush}">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewMouseRightButtonDown">
@@ -42,11 +54,24 @@
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsFlipped}" Value="true">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
+                        <Setter Property="Background" Value="Wheat"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{Binding BorderBrush}" BorderThickness="1">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{Binding MouseOverUnflippedBrush}"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsFlipped}" Value="true">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                 </Button.Style>
             </Button>
