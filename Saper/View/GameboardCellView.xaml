@@ -17,27 +17,53 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!-- This border is active after flipping Cell-->
             <Border Width="100" Height="100">
-                <Label Content="{Binding Value}"
-                       FontSize="70"
-                       HorizontalContentAlignment="Center"
-                       VerticalAlignment="Center"
-                       BorderBrush="{Binding BorderBrush}"
-                       BorderThickness="1">
+                <Grid>
+                    <Label Content="{Binding Value}"
+                           FontSize="70"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Center"
+                           BorderBrush="{Binding BorderBrush}"
+                           BorderThickness="1">         
 
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="Foreground" Value="{Binding FontBrush}" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasCounter}" Value="false">
-                                    <Setter Property="Foreground" Value="Transparent"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="{Binding FontBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasCounter}" Value="false">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+
+                    <!-- Mine Image -->
+                    <Grid Background="{Binding FontBrush}" IsHitTestVisible="False">
+                        <Grid.OpacityMask>
+                            <ImageBrush ImageSource="/Resource/mine.png" Stretch="Fill"/>
+                        </Grid.OpacityMask>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsFlipped}" Value="true" />
+                                            <Condition Binding="{Binding HasMine}" Value="true" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+                </Grid>
             </Border>
 
+            <!-- Button, Main interactive part -->
             <Button Content=""
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
@@ -76,11 +102,12 @@
                 </Button.Style>
             </Button>
 
+            <!-- Flag Image -->
             <Grid Background="{Binding FontBrush}" IsHitTestVisible="False">
                 <Grid.OpacityMask>
-                    <ImageBrush ImageSource="pack://application:,,,/Resource/flag.png" Stretch="Fill"/>
+                    <ImageBrush ImageSource="/Resource/flag.png" Stretch="Fill"/>
                 </Grid.OpacityMask>
-                
+
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"/>
@@ -92,9 +119,6 @@
                     </Style>
                 </Grid.Style>
             </Grid>
-
-            
-
         </Grid>
     </Viewbox>
     

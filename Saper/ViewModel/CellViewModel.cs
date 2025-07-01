@@ -37,6 +37,16 @@ namespace Saper.ViewModel
                 return true;
             } 
         }
+
+        public bool HasMine
+        {
+            get
+            {
+                if (Value == -1)
+                    return true;
+                return false;
+            }
+        }
         public ICommand FlipCommand { get => _flipCommand; set => _flipCommand = value; }
         public ICommand FlagCommand { get => _flagCommand; set => _flagCommand = value; }
         public Brush FontBrush { get => ColorsModel.Instance.SystemColor; }
