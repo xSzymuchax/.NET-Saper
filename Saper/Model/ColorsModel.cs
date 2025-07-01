@@ -66,6 +66,17 @@ namespace Saper.Model
             }
         }
 
+        public Brush NegativeSystemTheme
+        {
+            get
+            {
+                if (_systemMode)
+                    return LigthColorTheme;
+                else
+                    return DarkColorTheme;
+            }
+        }
+
         public Brush UnflippedCellColor
         {
             get
