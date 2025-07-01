@@ -37,5 +37,12 @@
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Left" />
     </Style>
+
+    <Style x:Key="MainTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}"/>
+        <Setter Property="Background" Value="{Binding ColorsModel.UnflippedCellColor}" />
+    </Style>
     
 </ResourceDictionary>

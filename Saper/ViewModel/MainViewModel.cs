@@ -52,6 +52,7 @@ namespace Saper.ViewModel
         public void StartNewGame(object param)
         {
             NewGameView newGameView = new NewGameView();
+            newGameView.DataContext = this;
             newGameView.ShowDialog();
 
             if (newGameView.DialogResult == true)
@@ -68,7 +69,10 @@ namespace Saper.ViewModel
                         GameboardVM = new GameboardViewModel(15, 15, 60);
                         break;
                     case "expert":
-                        GameboardVM = new GameboardViewModel(20, 20, 120);
+                        GameboardVM = new GameboardViewModel(20, 20, 100);
+                        break;
+                    case "custom":
+                        GameboardVM = new GameboardViewModel(newGameView.Heigth, newGameView.Width1, newGameView.Mines);
                         break;
                     default:
                         break;
