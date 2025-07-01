@@ -76,29 +76,25 @@
                 </Button.Style>
             </Button>
 
-            <Label Content="F"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   VerticalAlignment="Stretch"
-                   HorizontalAlignment="Stretch"
-                   FontSize="70"
-                   IsHitTestVisible="False">
-
-                <Label.Style>
-                    <Style TargetType="Label">
+            <Grid Background="{Binding FontBrush}" IsHitTestVisible="False">
+                <Grid.OpacityMask>
+                    <ImageBrush ImageSource="pack://application:,,,/Resource/flag.png" Stretch="Fill"/>
+                </Grid.OpacityMask>
+                
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"/>
-
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsFlagged}" Value="true">
-                                <Setter Property="Visibility" Value="Visible"/>
+                            <DataTrigger Binding="{Binding IsFlagged}" Value="true" >
+                                <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
-
                     </Style>
-                </Label.Style>
-                
-            </Label>
+                </Grid.Style>
+            </Grid>
+
             
+
         </Grid>
     </Viewbox>
     
