@@ -59,8 +59,8 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row ="0" Content="Time: 00:00.00" Style="{StaticResource MainLabelStyle}" />
-                    <Label Grid.Row="1" Content="Mines: 0" Style="{StaticResource MainLabelStyle}" />
-                    <Label Grid.Row="2" Content="Fields: 0" Style="{StaticResource MainLabelStyle}" />
+                    <Label Grid.Row="1" Content="{Binding MinesLeft}" Style="{StaticResource MainLabelStyle}" />
+                    <Label Grid.Row="2" Content="{Binding CellsLeft}" Style="{StaticResource MainLabelStyle}" />
                 </Grid>
 
                 <!-- Player Buffs -->

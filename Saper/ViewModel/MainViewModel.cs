@@ -20,17 +20,63 @@ namespace Saper.ViewModel
         private ICommand _startNewGameCommand;
         private ICommand _showOptionDialogCommand;
 
+        public string MinesLeft
+        {
+            get
+            {
+                if (_gameboardVM != null)
+                    return $"Mines: {_gameboardVM.MinesLeft}";
+                else
+                    return "Mines: 0";
+            }
+        }
 
+        public string CellsLeft
+        {
+            get
+            {
+                if (_gameboardVM != null)
+                    return $"Cells: {_gameboardVM.CellsLeft}";
+                else
+                    return "Cells: 0";
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public GameboardViewModel GameboardVM { get => _gameboardVM;
-            set
+        public GameboardViewModel GameboardVM
+        {
+            get => _gameboardVM;
+            private set
             {
-                _gameboardVM = value;
-                Debug.WriteLine("zmieniono planszę");
-                OnPropertyChanged(nameof(GameboardVM));
+                if (_gameboardVM != value)
+                {
+                    if (_gameboardVM != null)
+                        _gameboardVM.PropertyChanged -= GameboardVM_PropertyChanged;
+
+                    _gameboardVM = value;
+
+                    if (_gameboardVM != null)
+                        _gameboardVM.PropertyChanged += GameboardVM_PropertyChanged;
+
+                    OnPropertyChanged(nameof(GameboardVM));
+                    OnPropertyChanged(nameof(MinesLeft));
+                    OnPropertyChanged(nameof(CellsLeft));
+                }
+            }
+        }
+
+        // and im added to my child too... if it changes then i change, and then ui changes
+        private void GameboardVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GameboardVM.MinesLeft))
+            {
+                OnPropertyChanged(nameof(MinesLeft));
+            }
+            else if (e.PropertyName == nameof(GameboardVM.CellsLeft))
+            {
+                OnPropertyChanged(nameof(CellsLeft));
             }
         }
         public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }

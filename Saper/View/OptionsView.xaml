@@ -18,8 +18,8 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" Margin="10" IsChecked="{Binding Recording}"/>
-        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" Margin="10" IsChecked="{Binding Sound}"/>
+        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" IsChecked="{Binding Recording}" Style="{StaticResource CheckBoxStyle}"/>
+        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" IsChecked="{Binding Sound}" Style="{StaticResource CheckBoxStyle}"/>
 
         <Button Grid.Row="2" Name="ChangeRecordDestinationButton" Content="Change record destination" 
                 Style="{StaticResource MainButtonStyle}"

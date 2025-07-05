@@ -1,18 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Saper.Model
 {
-    public class GameboardModel
+    public class GameboardModel : INotifyPropertyChanged
     {
+        private int _minesLeft;
+        private int _cellsLeft;
+
         public int Width { get; private set; }
         public int Height { get; private set; }
         public int MineCount { get; private set; }
         public CellModel[,] Board { get; private set; }
 
+        // this one is funny - when i change, i notify...
+        public int CellsLeft {
+            get => _cellsLeft; 
+            private set
+            {
+                _cellsLeft = value;
+                OnPropertyChanged(nameof(CellsLeft));
+            }
+        }
+        public int MinesLeft
+        {
+            get => _minesLeft;
+            private set
+            {
+                _minesLeft = value;
+                OnPropertyChanged(nameof(MinesLeft));
+            }
+        }
         public GameboardModel(int width, int height, int mineCount)
         {
             Width = width;
@@ -20,7 +43,12 @@ namespace Saper.Model
             MineCount = mineCount;
             Board = new CellModel[width, height];
             SetUpGameboard();
+        }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void SetUpGameboard()
@@ -28,6 +56,8 @@ namespace Saper.Model
             InitializeBoard();
             GenerateMines();
             CountSurroundingMines();
+            CellsLeft = Width * Height - MineCount;
+            MinesLeft = MineCount;
         }
         
         public void InitializeBoard()
@@ -101,7 +131,10 @@ namespace Saper.Model
         public void FlipCell(int x, int y)
         {
             if (!Board[x, y].IsFlagged && !Board[x, y].IsFlipped)
+            {
                 Board[x, y].FlipCell();
+                CellsLeft--;
+            }
             else
                 return;
 
@@ -130,6 +163,10 @@ namespace Saper.Model
             if (!Board[x, y].IsFlipped)
             {
                 Board[x, y].FlagCell();
+                if (Board[x, y].IsFlagged)
+                    MinesLeft--;
+                else
+                    MinesLeft++;
             }
         }
 

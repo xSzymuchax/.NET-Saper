@@ -44,5 +44,45 @@
         <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}"/>
         <Setter Property="Background" Value="{Binding ColorsModel.UnflippedCellColor}" />
     </Style>
+
+    <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border x:Name="Border"
+                            Width="16"
+                            Height="16"
+                            BorderBrush="{Binding ColorsModel.SystemColor}"
+                            BorderThickness="2"
+                            Background="{Binding ColorsModel.SystemTheme}"
+                            CornerRadius="4"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center">
+                            <Path x:Name="CheckMark"
+                                Data="M0,4 L3,7 L8,0"
+                                Stroke="{Binding ColorsModel.SystemColor}"
+                                StrokeThickness="2"
+                                Visibility="Collapsed"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}" />
+    </Style>
     
 </ResourceDictionary>
