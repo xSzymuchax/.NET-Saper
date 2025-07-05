@@ -41,8 +41,9 @@ namespace Saper.ViewModel
         public MainViewModel()
         {
             new ColorsModel();
+            new Options();
             Debug.WriteLine("Instancja:" + ColorsModel);
-            _gameboardVM = new GameboardViewModel(1,2,1);
+            //_gameboardVM = new GameboardViewModel(1,2,1);
             
 
             _startNewGameCommand = new RelayCommand(StartNewGame, o => true);

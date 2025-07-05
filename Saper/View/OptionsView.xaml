@@ -8,8 +8,9 @@
         Title="OptionsView" 
         Height="300" MinHeight="300" MaxHeight="300" 
         Width="200" MinWidth="200" MaxWidth="200"
+        Background="{Binding ColorsModel.SystemTheme}"
         >
-    <Grid Margin="10">
+    <Grid Margin="10" Background="{Binding ColorsModel.SystemTheme}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -17,10 +18,16 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" Margin="10"/>
-        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" Margin="10"/>
+        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" Margin="10" IsChecked="{Binding Recording}"/>
+        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" Margin="10" IsChecked="{Binding Sound}"/>
 
-        <Button Grid.Row="2" Name="ChangeRecordDestinationButton" Content="Change record destination" Margin="10"></Button>
-        <Button Grid.Row="3" Name="CloseWindowButton" Content="Save and Close" Margin="10"></Button>
+        <Button Grid.Row="2" Name="ChangeRecordDestinationButton" Content="Change record destination" 
+                Style="{StaticResource MainButtonStyle}"
+                Command="{Binding ChangeRecordDestinationCommand}"/>
+        
+        <Button Grid.Row="3" Name="CloseWindowButton" Content="Save and Close" 
+                Style="{StaticResource MainButtonStyle}"
+                Command="{Binding SaveAndExitCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
     </Grid>
 </Window>
