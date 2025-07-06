@@ -11,11 +11,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Saper.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        // timer part
+        private string _currentTime;
+        private DateTime _clickTime;
+        private DispatcherTimer _timer;
+        private void UpdateTime()
+        {
+            TimeSpan elapsed = DateTime.Now - _clickTime;
+            CurrentTime = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}", (int)elapsed.TotalHours, elapsed.Minutes, elapsed.Seconds, elapsed.Milliseconds);
+        }
+        public string CurrentTime
+        {
+            get => $"Time: {_currentTime}";
+            private set
+            {
+                _currentTime = value;
+                OnPropertyChanged(nameof(CurrentTime));
+            }
+        }
+
         private GameboardViewModel _gameboardVM;
         private ICommand _startNewGameCommand;
         private ICommand _showOptionDialogCommand;
@@ -94,6 +114,16 @@ namespace Saper.ViewModel
 
             _startNewGameCommand = new RelayCommand(StartNewGame, o => true);
             _showOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
+
+            // timer
+            _clickTime = DateTime.Now;
+            UpdateTime();
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(50)
+            };
+            _timer.Tick += (s, e) => UpdateTime();
+            //_timer.Start();
         }
 
         public void StartNewGame(object param)
@@ -124,6 +154,8 @@ namespace Saper.ViewModel
                     default:
                         break;
                 }
+                _clickTime = DateTime.Now;
+                _timer.Start();
             }
             else return;
         }

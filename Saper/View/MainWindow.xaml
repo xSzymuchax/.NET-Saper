@@ -59,7 +59,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row ="0" 
-                           Content="Time: 00:00.00" 
+                           Content="{Binding CurrentTime}" d:Content="Time: 00:00:00.000" 
                            Style="{StaticResource MainLabelStyle}" />
                     
                     <Label Grid.Row="1" 
