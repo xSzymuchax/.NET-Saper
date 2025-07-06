@@ -9,7 +9,7 @@
         Height="400" MinHeight="400" MaxHeight="400" 
         Width="200" MinWidth="200" MaxWidth="200"
         >
-    <Grid Background="{Binding ColorsModel.SystemTheme}">
+    <Grid Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>

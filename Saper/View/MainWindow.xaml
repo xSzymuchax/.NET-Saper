@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:Saper" xmlns:local1="clr-namespace:Saper.View"
         mc:Ignorable="d"
         Title="Minesweeper!" Height="450" Width="800" MinHeight="450" MinWidth="800">
-    <Grid Name="MainGrid" Background="{Binding ColorsModel.SystemTheme}">
+    <Grid Name="MainGrid" Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <!-- Gameboard part of the window -->
-        <Border Grid.Column="0" Background="{Binding ColorsModel.SystemTheme}">
+        <Border Grid.Column="0" Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
             <Viewbox Stretch="Uniform" Margin="10">
-                <Grid Name="GameboardGrid" Background="{Binding ColorsModel.SystemTheme}">
+                <Grid Name="GameboardGrid" Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
                     <!-- Here goes gameboard's cells -->
                     <ItemsControl ItemsSource="{Binding GameboardVM.Cells}">
                         <ItemsControl.ItemsPanel>
@@ -37,13 +37,13 @@
 
         <!-- Player menu, buffs, skills, informations -->
         <Border Grid.Column="1" 
-                Background="{Binding ColorsModel.SystemTheme}"
-                BorderBrush="{Binding ColorsModel.SystemColor}"
+                Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626"
+                BorderBrush="{Binding ColorsModel.SystemColor}" d:BorderBrush="#00FF00"
                 BorderThickness="2"
                 CornerRadius="5"
                 Margin="5"
                 >
-            <Grid Name="MenuGrid" Background="{Binding ColorsModel.SystemTheme}" >
+            <Grid Name="MenuGrid" Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="4*"/>
@@ -58,9 +58,17 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row ="0" Content="Time: 00:00.00" Style="{StaticResource MainLabelStyle}" />
-                    <Label Grid.Row="1" Content="{Binding MinesLeft}" Style="{StaticResource MainLabelStyle}" />
-                    <Label Grid.Row="2" Content="{Binding CellsLeft}" Style="{StaticResource MainLabelStyle}" />
+                    <Label Grid.Row ="0" 
+                           Content="Time: 00:00.00" 
+                           Style="{StaticResource MainLabelStyle}" />
+                    
+                    <Label Grid.Row="1" 
+                           Content="{Binding MinesLeft}" d:Content="Mines: 0"
+                           Style="{StaticResource MainLabelStyle}" />
+                    
+                    <Label Grid.Row="2" 
+                           Content="{Binding CellsLeft}" d:Content="Cells: 0"
+                           Style="{StaticResource MainLabelStyle}" />
                 </Grid>
 
                 <!-- Player Buffs -->
@@ -71,11 +79,13 @@
                     </Grid.ColumnDefinitions>
 
                     <Viewbox Grid.Column="0" Stretch="Uniform" Margin="5">
-                        <Grid Background="{Binding ColorsModel.SystemColor}" Height="1" Width="1"></Grid>
+                        <Grid Background="{Binding ColorsModel.SystemColor}" d:Background="#00FF00"
+                              Height="1" Width="1"/>
                     </Viewbox>
 
                     <Viewbox Grid.Column="1" Stretch="Uniform" Margin="5">
-                        <Grid Background="{Binding ColorsModel.SystemColor}" Height="1" Width="1"></Grid>
+                        <Grid Background="{Binding ColorsModel.SystemColor}" d:Background="#00FF00"
+                              Height="1" Width="1"/>
                     </Viewbox>
                 </Grid>
             
@@ -89,13 +99,22 @@
                     </Grid.RowDefinitions>
                 
                 
-                    <Button Name="OptionsButton" Grid.Row="1" Content="Options" Style="{StaticResource MainButtonStyle}"
+                    <Button Name="OptionsButton" 
+                            Grid.Row="1" 
+                            Content="Options" 
+                            Style="{StaticResource MainButtonStyle}"
                             Command="{Binding ShowOptionDialogCommand}"/>
 
-                    <Button Name="NewGameButton" Grid.Row="2" Content="New Game" Style="{StaticResource MainButtonStyle}"
+                    <Button Name="NewGameButton" 
+                            Grid.Row="2" 
+                            Content="New Game" 
+                            Style="{StaticResource MainButtonStyle}"
                             Command="{Binding StartNewGameCommand}"/>
 
-                    <Button Name="WatchRecordedGameButton" Grid.Row="3" Content="Watch Recorded Game" Style="{StaticResource MainButtonStyle}" />
+                    <Button Name="WatchRecordedGameButton" 
+                            Grid.Row="3" 
+                            Content="Watch Recorded Game" 
+                            Style="{StaticResource MainButtonStyle}" />
                 </Grid>
                   
             </Grid>

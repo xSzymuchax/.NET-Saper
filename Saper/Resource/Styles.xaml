@@ -2,12 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="MainButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{Binding ColorsModel.SystemTheme}" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemTheme" FallbackValue="#262626" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}"/>
+        <Setter Property="Foreground" >
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemColor" FallbackValue="#00FF00" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontFamily" Value="Roboto" />
-        <Setter Property="BorderBrush" Value="{Binding ColorsModel.SystemColor}" />
+        <Setter Property="BorderBrush" >
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemColor" FallbackValue="#00FF00" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -33,7 +45,11 @@
     <Style x:Key="MainLabelStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}"/>
+        <Setter Property="Foreground" >
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemColor" FallbackValue="#00FF00" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Left" />
     </Style>
@@ -41,7 +57,11 @@
     <Style x:Key="MainTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemColor" FallbackValue="#00FF00"/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Background" Value="{Binding ColorsModel.UnflippedCellColor}" />
     </Style>
 
@@ -82,7 +102,11 @@
         <Setter Property="Margin" Value="10"/>
         <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="{Binding ColorsModel.SystemColor}" />
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <Binding Path="ColorsModel.SystemColor" FallbackValue="#00FF00"/>
+            </Setter.Value>
+        </Setter>
     </Style>
     
 </ResourceDictionary>

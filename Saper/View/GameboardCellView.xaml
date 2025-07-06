@@ -20,16 +20,20 @@
             <!-- This border is active after flipping Cell-->
             <Border Width="100" Height="100">
                 <Grid>
-                    <Label Content="{Binding Value}"
+                    <Label Content="{Binding Value}" d:Content="1"
                            FontSize="70"
                            HorizontalContentAlignment="Center"
                            VerticalAlignment="Center"
-                           BorderBrush="{Binding BorderBrush}"
+                           BorderBrush="{Binding BorderBrush}" d:BorderBrush="#00FF00"
                            BorderThickness="1">         
 
                         <Label.Style>
                             <Style TargetType="Label">
-                                <Setter Property="Foreground" Value="{Binding FontBrush}" />
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <Binding Path="FontBrush" FallbackValue="#00ff00" />
+                                    </Setter.Value>
+                                </Setter>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding HasCounter}" Value="false">
                                         <Setter Property="Foreground" Value="Transparent"/>

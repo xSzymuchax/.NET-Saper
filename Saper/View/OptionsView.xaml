@@ -8,9 +8,9 @@
         Title="OptionsView" 
         Height="300" MinHeight="300" MaxHeight="300" 
         Width="200" MinWidth="200" MaxWidth="200"
-        Background="{Binding ColorsModel.SystemTheme}"
+        Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626"
         >
-    <Grid Margin="10" Background="{Binding ColorsModel.SystemTheme}">
+    <Grid Margin="10" Background="{Binding ColorsModel.SystemTheme}" d:Background="#262626">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,8 +18,17 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Grid.Row="0" Name="RecordingCheckBox" Content="Recording enabled" IsChecked="{Binding Recording}" Style="{StaticResource CheckBoxStyle}"/>
-        <CheckBox Grid.Row="1" Name="SoundCheckbox" Content="Sound enabled" IsChecked="{Binding Sound}" Style="{StaticResource CheckBoxStyle}"/>
+        <CheckBox Grid.Row="0" 
+                  Name="RecordingCheckBox" 
+                  Content="Recording enabled" 
+                  IsChecked="{Binding Recording}" d:IsChecked="true"
+                  Style="{StaticResource CheckBoxStyle}"/>
+        
+        <CheckBox Grid.Row="1" 
+                  Name="SoundCheckbox" 
+                  Content="Sound enabled" 
+                  IsChecked="{Binding Sound}" 
+                  Style="{StaticResource CheckBoxStyle}"/>
 
         <Button Grid.Row="2" Name="ChangeRecordDestinationButton" Content="Change record destination" 
                 Style="{StaticResource MainButtonStyle}"
