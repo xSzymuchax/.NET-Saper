@@ -98,6 +98,10 @@ namespace Saper.ViewModel
             {
                 OnPropertyChanged(nameof(CellsLeft));
             }
+            //else if (e.PropertyName == nameof(GameboardVM.Cells))
+            //{
+            //    OnPropertyChanged(nameof(GameboardVM.Cells));
+            //}
         }
         public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }
         public ICommand ShowOptionDialogCommand { get => _showOptionDialogCommand; set => _showOptionDialogCommand = value; }
@@ -137,7 +141,7 @@ namespace Saper.ViewModel
                 switch (newGameView.Difficulty)
                 {
                     case "easy":
-                        GameboardVM = new GameboardViewModel(10, 10, 10);
+                        GameboardVM = new GameboardViewModel(4, 4, 5);
                         break;
                     case "medium":
                         GameboardVM = new GameboardViewModel(12, 12, 25);
@@ -154,8 +158,8 @@ namespace Saper.ViewModel
                     default:
                         break;
                 }
-                _clickTime = DateTime.Now;
-                _timer.Start();
+                //_clickTime = DateTime.Now;
+                //_timer.Start();
             }
             else return;
         }

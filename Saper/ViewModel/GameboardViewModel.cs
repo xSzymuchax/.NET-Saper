@@ -64,6 +64,10 @@ namespace Saper.ViewModel
             {
                 OnPropertyChanged(nameof(CellsLeft));
             }
+            else if (e.PropertyName == nameof(_gameboard.Board))
+            {
+                OnPropertyChanged(nameof(Cells));
+            }
         }
 
         public void FlipCell(int x, int y)

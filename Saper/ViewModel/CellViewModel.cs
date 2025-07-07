@@ -27,7 +27,17 @@ namespace Saper.ViewModel
 
         public int X { get { return _x; } }
         public int Y { get { return _y; } }
-        public int Value { get { return _cell.Value; } }
+        public int Value
+        {
+            get => _cell.Value;
+            set
+            {
+                _cell.Value = value;
+                OnPropertyChanged(nameof(Value));
+                //OnPropertyChanged(nameof(HasCounter));
+                //OnPropertyChanged(nameof(HasMine));
+            }
+        }
 
         public bool HasCounter { 
             get
@@ -91,13 +101,26 @@ namespace Saper.ViewModel
             _y = y;
             _cell = cell;
 
-            _flipCommand = new RelayCommand(FlipCell, o => true);
+            //Cell
+
+            _cell.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_cell.Value))
+                {
+                    OnPropertyChanged(nameof(Value));
+                    OnPropertyChanged(nameof(HasMine));
+                    OnPropertyChanged(nameof(HasCounter));
+                }
+            };
+
+            FlipCommand = new RelayCommand(FlipCell, o => true);
             FlagCommand = new RelayCommand(FlagCell, o => true);
         }
 
         public void FlipCell(object obj)
         {
             Debug.WriteLine("FlipCommand");
+            Debug.WriteLine($"Value: {Value}");
             _gameboard.FlipCell(_x, _y);
         }
 
