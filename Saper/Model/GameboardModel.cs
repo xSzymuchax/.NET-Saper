@@ -184,10 +184,7 @@ namespace Saper.Model
 
         public void FlipCell(int x, int y)
         {
-            if (!GameController.Instance.GameRunning)
-                return;
-
-            if (Board[x, y].Value == -1)
+            if (Board[x, y].Value == -1 && !Board[x,y].IsFlagged)
                 GameController.Instance.EndGame();
 
             if (_firstFlipClick)

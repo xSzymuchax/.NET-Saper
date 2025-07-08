@@ -14,6 +14,7 @@ namespace Saper.Model
         private bool _gameRunning;
         private TimerModel _timer;
         private GameboardViewModel _gameboardViewModel;
+        private GameboardModel _gameboard;
         private static GameController _instance;
 
 
@@ -55,7 +56,9 @@ namespace Saper.Model
                 default:
                     return new GameboardViewModel(2, 2, 1) { Timer = Timer };
             }
+            
             _gameboardViewModel = gvm;
+            _gameboard = gvm.Gameboard;
             GameRunning = true;
             return gvm;
         }
@@ -64,9 +67,26 @@ namespace Saper.Model
         {
             GameRunning = false;
             Timer.StopTimer();
-            MessageBox.Show("boom");
+            //MessageBox.Show("boom");
         }
 
+        public void FlipCell(int x, int y)
+        {
+            if (!GameRunning)
+                return;
 
+            if (!Timer.IsRunning)
+                Timer.StartTimer();
+
+            _gameboard.FlipCell(x, y);
+        }
+
+        public void FlagCell(int x, int y)
+        {
+            if (!GameRunning)
+                return;
+
+            _gameboard.FlagCell(x, y);
+        }
     }
 }

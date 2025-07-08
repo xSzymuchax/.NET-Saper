@@ -22,33 +22,34 @@ namespace Saper.ViewModel
         }
 
         public ObservableCollection<CellViewModel> Cells { get; }
-        public int Heigth => _gameboard.Height;
-        public int Width => _gameboard.Width;
-        public int CellsLeft => _gameboard.CellsLeft;
-        public int MinesLeft => _gameboard.MinesLeft;
+        public int Heigth => Gameboard.Height;
+        public int Width => Gameboard.Width;
+        public int CellsLeft => Gameboard.CellsLeft;
+        public int MinesLeft => Gameboard.MinesLeft;
         public TimerModel Timer { get; set; }
-        
+        public GameboardModel Gameboard { get => _gameboard; private set => _gameboard = value; }
+
         public GameboardViewModel(int x_size, int y_size, int mines)
         {
 
             if (mines >= x_size * y_size)
             {
-                _gameboard = new GameboardModel(1, 1, 0);
-                _gameboard.PropertyChanged += Gameboard_PropertyChanged;
+                Gameboard = new GameboardModel(1, 1, 0);
+                Gameboard.PropertyChanged += Gameboard_PropertyChanged;
                 return;
             }
                 
 
             // roboczo
-            _gameboard = new GameboardModel(x_size, y_size, mines);
-            _gameboard.PropertyChanged += Gameboard_PropertyChanged;
+            Gameboard = new GameboardModel(x_size, y_size, mines);
+            Gameboard.PropertyChanged += Gameboard_PropertyChanged;
             Cells = new ObservableCollection<CellViewModel>();
 
             for (int i = 0; i < x_size; i++)
             {
                 for (int j = 0; j < y_size; j++)
                 {
-                    CellViewModel cellViewModel = new CellViewModel(this, i, j, _gameboard.Board[i, j]);
+                    CellViewModel cellViewModel = new CellViewModel(this, i, j, Gameboard.Board[i, j]);
                     Cells.Add(cellViewModel);
                 }
             }
@@ -57,15 +58,15 @@ namespace Saper.ViewModel
         // im added to my child, on change, when child changes, it tells me, then i change...
         private void Gameboard_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_gameboard.MinesLeft))
+            if (e.PropertyName == nameof(Gameboard.MinesLeft))
             {
                 OnPropertyChanged(nameof(MinesLeft));
             }
-            else if (e.PropertyName == nameof(_gameboard.CellsLeft))
+            else if (e.PropertyName == nameof(Gameboard.CellsLeft))
             {
                 OnPropertyChanged(nameof(CellsLeft));
             }
-            else if (e.PropertyName == nameof(_gameboard.Board))
+            else if (e.PropertyName == nameof(Gameboard.Board))
             {
                 OnPropertyChanged(nameof(Cells));
             }
@@ -73,11 +74,7 @@ namespace Saper.ViewModel
 
         public void FlipCell(int x, int y)
         {
-            if (!Timer.IsRunning)
-                Timer.StartTimer();
-
-            _gameboard.FlipCell(x, y);
-
+            GameController.Instance.FlipCell(x, y);
             foreach (var cell in Cells)
             {
                 cell.OnPropertyChanged(nameof(CellViewModel.IsFlipped));
@@ -86,8 +83,7 @@ namespace Saper.ViewModel
 
         public void FlagCell(int x, int y)
         {
-            _gameboard.FlagCell(x,y);
-
+            GameController.Instance.FlagCell(x, y);
             var cell = Cells.FirstOrDefault(c => c.X == x && c.Y == y);
             if (cell != null)
                 cell.OnPropertyChanged(nameof(CellViewModel.IsFlagged));
