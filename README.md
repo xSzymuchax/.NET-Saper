@@ -12,12 +12,13 @@
 - flagging fields
 - coloring depending on system colors
 - starting new game
+- winning / losing
+- save starting
 
 
 ## TODO
 
-- winning / losing
 - recording game
 - working options
 - skills and buffs
-- save starting
+
