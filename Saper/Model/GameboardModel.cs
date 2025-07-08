@@ -53,7 +53,6 @@ namespace Saper.Model
             Height = height;
             MineCount = mineCount;
             Board = new CellModel[width, height];
-            //SetUpDummyGameboard();
             SetUpGameboard();
         }
 
@@ -63,18 +62,11 @@ namespace Saper.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void SetUpDummyGameboard()
-        {
-            InitializeBoard();
-            CellsLeft = Width * Height - MineCount;
-            MinesLeft = MineCount;
-        }
-
         public void SetUpGameboard()
         {
             InitializeBoard();
             GenerateMines(MineCount);
-            //CountSurroundingMines();
+            //CountSurroundingMines(); not used here, counting happens after first click
             CellsLeft = Width * Height - MineCount;
             MinesLeft = MineCount;
         }
@@ -90,6 +82,7 @@ namespace Saper.Model
                 }
             }
         }
+
         private void DebugGameboard()
         {
             string log = "";
@@ -156,7 +149,6 @@ namespace Saper.Model
             }
 
             DebugGameboard();
-            //Application.Current.MainWindow.UpdateLayout();
         }
 
         public int CellValue(int x, int y)
@@ -164,7 +156,6 @@ namespace Saper.Model
             return Board[x, y].Value;
         }
 
-        // TODO - to ma kasowac 3x3 w miejscu kliku i przezucac bomby w inne miejsce
         private void FirstGameFlip(int x, int y)
         {
             int removedMines = 0;
