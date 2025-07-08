@@ -13,6 +13,7 @@ namespace Saper.ViewModel
     public class GameboardViewModel : INotifyPropertyChanged
     {
         private GameboardModel _gameboard;
+        private TimerModel _timer;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -25,7 +26,7 @@ namespace Saper.ViewModel
         public int Width => _gameboard.Width;
         public int CellsLeft => _gameboard.CellsLeft;
         public int MinesLeft => _gameboard.MinesLeft;
-
+        public TimerModel Timer { get; set; }
         
         public GameboardViewModel(int x_size, int y_size, int mines)
         {
@@ -72,6 +73,9 @@ namespace Saper.ViewModel
 
         public void FlipCell(int x, int y)
         {
+            if (!Timer.IsRunning)
+                Timer.StartTimer();
+
             _gameboard.FlipCell(x, y);
 
             foreach (var cell in Cells)

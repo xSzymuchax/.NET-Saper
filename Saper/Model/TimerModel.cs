@@ -15,6 +15,7 @@ namespace Saper.Model
         private DateTime _clickTime;
         private DateTime _currentTime;
         private string _gameTime;
+        private bool _isRunning;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -31,6 +32,16 @@ namespace Saper.Model
             }
         }
 
+        public bool IsRunning
+        {
+            get => _isRunning;
+            private set
+            {
+                _isRunning = value;
+                OnPropertyChanged(nameof(IsRunning));
+            }
+        }
+
         private void UpdateTimer()
         {
             _currentTime = DateTime.Now;
@@ -42,7 +53,20 @@ namespace Saper.Model
         public void StartTimer()
         {
             _clickTime = DateTime.Now;
+            _isRunning = true;
             _timer.Start();
+        }
+
+        public void StopTimer()
+        {
+            _isRunning = false;
+            _timer.Stop();
+        }
+
+        public void ResetTimer()
+        {
+            GameTime = "00:00:00.000";
+            _timer.Stop();
         }
 
         public TimerModel()
