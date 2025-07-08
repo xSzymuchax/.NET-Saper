@@ -34,8 +34,6 @@ namespace Saper.ViewModel
             {
                 _cell.Value = value;
                 OnPropertyChanged(nameof(Value));
-                //OnPropertyChanged(nameof(HasCounter));
-                //OnPropertyChanged(nameof(HasMine));
             }
         }
 

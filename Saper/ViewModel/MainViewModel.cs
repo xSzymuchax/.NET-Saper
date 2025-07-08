@@ -17,29 +17,31 @@ namespace Saper.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        // timer part
-        private string _currentTime;
-        private DateTime _clickTime;
-        private DispatcherTimer _timer;
-        private void UpdateTime()
-        {
-            TimeSpan elapsed = DateTime.Now - _clickTime;
-            CurrentTime = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}", (int)elapsed.TotalHours, elapsed.Minutes, elapsed.Seconds, elapsed.Milliseconds);
-        }
-        public string CurrentTime
-        {
-            get => $"Time: {_currentTime}";
-            private set
-            {
-                _currentTime = value;
-                OnPropertyChanged(nameof(CurrentTime));
+        // timer
+        private TimerModel _timer;
+        public TimerModel Timer { get => _timer;
+            private set 
+            { 
+                _timer = value;
+                OnPropertyChanged(nameof(Timer));
             }
         }
 
-        private GameboardViewModel _gameboardVM;
+        //commands
         private ICommand _startNewGameCommand;
         private ICommand _showOptionDialogCommand;
 
+        public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }
+        public ICommand ShowOptionDialogCommand { get => _showOptionDialogCommand; set => _showOptionDialogCommand = value; }
+
+        // property changed event
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+
+        private GameboardViewModel _gameboardVM;
+        
         public string MinesLeft
         {
             get
@@ -61,9 +63,6 @@ namespace Saper.ViewModel
                     return "Cells: 0";
             }
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public GameboardViewModel GameboardVM
         {
@@ -98,38 +97,31 @@ namespace Saper.ViewModel
             {
                 OnPropertyChanged(nameof(CellsLeft));
             }
-            //else if (e.PropertyName == nameof(GameboardVM.Cells))
-            //{
-            //    OnPropertyChanged(nameof(GameboardVM.Cells));
-            //}
         }
-        public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }
-        public ICommand ShowOptionDialogCommand { get => _showOptionDialogCommand; set => _showOptionDialogCommand = value; }
+
+        // subscription to timer
+        
 
         public ColorsModel ColorsModel { get => ColorsModel.Instance; }
+
 
         public MainViewModel()
         {
             new ColorsModel();
             new Options();
-            Debug.WriteLine("Instancja:" + ColorsModel);
-            //_gameboardVM = new GameboardViewModel(1,2,1);
+            Timer = new TimerModel();
             
-
             _startNewGameCommand = new RelayCommand(StartNewGame, o => true);
             _showOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
-
-            // timer
-            _clickTime = DateTime.Now;
-            UpdateTime();
-            _timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(50)
-            };
-            _timer.Tick += (s, e) => UpdateTime();
-            //_timer.Start();
+        }
+        
+        public void ChangeOptions(object param)
+        {
+            OptionsView optionsView = new OptionsView();
+            optionsView.ShowDialog();
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void StartNewGame(object param)
         {
             NewGameView newGameView = new NewGameView();
@@ -141,7 +133,7 @@ namespace Saper.ViewModel
                 switch (newGameView.Difficulty)
                 {
                     case "easy":
-                        GameboardVM = new GameboardViewModel(4, 4, 5);
+                        GameboardVM = new GameboardViewModel(10, 10, 10);
                         break;
                     case "medium":
                         GameboardVM = new GameboardViewModel(12, 12, 25);
@@ -159,15 +151,9 @@ namespace Saper.ViewModel
                         break;
                 }
                 //_clickTime = DateTime.Now;
-                //_timer.Start();
+                Timer.StartTimer();
             }
             else return;
-        }
-        
-        public void ChangeOptions(object param)
-        {
-            OptionsView optionsView = new OptionsView();
-            optionsView.ShowDialog();
         }
     }
 }

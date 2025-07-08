@@ -189,16 +189,6 @@ namespace Saper.Model
 
             GenerateMines(removedMines);
             CountSurroundingMines();
-            //SetUpGameboard();
-
-            //// respawn bombs
-            //GenerateMines(removedMines);
-
-            //// recount
-            //CountSurroundingMines();
-
-            // start timer (hard)
-
         }
 
         public void FlipCell(int x, int y)
