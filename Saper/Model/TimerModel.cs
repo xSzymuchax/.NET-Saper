@@ -53,13 +53,13 @@ namespace Saper.Model
         public void StartTimer()
         {
             _clickTime = DateTime.Now;
-            _isRunning = true;
+            IsRunning= true;
             _timer.Start();
         }
 
         public void StopTimer()
         {
-            _isRunning = false;
+            IsRunning = false;
             _timer.Stop();
         }
 

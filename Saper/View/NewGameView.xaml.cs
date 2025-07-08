@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,12 @@ namespace Saper.View
     /// </summary>
     public partial class NewGameView : Window
     {
-        private string _difficulty;
+        private GameMode _difficulty;
         private int _width;
         private int _heigth;
         private int _mines;
 
-        public string Difficulty { get => _difficulty; private set => _difficulty = value; }
+        public GameMode Difficulty { get => _difficulty; private set => _difficulty = value; }
         public int Width1 { get => _width; private set => _width = value; }
         public int Heigth { get => _heigth; private set => _heigth = value; }
         public int Mines { get => _mines; private set => _mines = value; }
@@ -36,31 +37,31 @@ namespace Saper.View
 
         private void EasyGameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Difficulty = "easy";
+            Difficulty = GameMode.EASY;
             DialogResult = true;
         }
 
         private void MediumGameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Difficulty = "medium";
+            Difficulty = GameMode.NORMAL;
             DialogResult = true;
         }
 
         private void HardGameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Difficulty = "hard";
+            Difficulty = GameMode.HARD;
             DialogResult = true;
         }
 
         private void ExpertGameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Difficulty = "expert";
+            Difficulty = GameMode.EXPERT;
             DialogResult = true;
         }
 
         private void CustomGameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Difficulty = "custom";
+            Difficulty = GameMode.CUSTOM;
 
             if (Int32.TryParse(WidthTextbox.Text, out _width) == false)
             {

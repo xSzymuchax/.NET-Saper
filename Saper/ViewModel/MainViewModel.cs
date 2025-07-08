@@ -17,6 +17,9 @@ namespace Saper.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        // 
+        private GameController _gameController;
+
         // timer
         private TimerModel _timer;
         public TimerModel Timer { get => _timer; private set { _timer = value; }}
@@ -97,7 +100,8 @@ namespace Saper.ViewModel
         {
             new ColorsModel();
             new Options();
-            Timer = new TimerModel();
+            _gameController = new GameController();
+            Timer = _gameController.Timer;
             
             StartNewGameCommand = new RelayCommand(StartNewGame, o => true);
             ShowOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
@@ -109,7 +113,6 @@ namespace Saper.ViewModel
             optionsView.ShowDialog();
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void StartNewGame(object param)
         {
             NewGameView newGameView = new NewGameView();
@@ -117,30 +120,7 @@ namespace Saper.ViewModel
             newGameView.ShowDialog();
 
             if (newGameView.DialogResult == true)
-            {
-                switch (newGameView.Difficulty)
-                {
-                    case "easy":
-                        GameboardVM = new GameboardViewModel(10, 10, 10) { Timer = _timer};
-                        break;
-                    case "medium":
-                        GameboardVM = new GameboardViewModel(12, 12, 25) { Timer = _timer };
-                        break;
-                    case "hard":
-                        GameboardVM = new GameboardViewModel(15, 15, 60) { Timer = _timer };
-                        break;
-                    case "expert":
-                        GameboardVM = new GameboardViewModel(20, 20, 100) { Timer = _timer };
-                        break;
-                    case "custom":
-                        GameboardVM = new GameboardViewModel(newGameView.Heigth, newGameView.Width1, newGameView.Mines) { Timer = _timer };
-                        break;
-                    default:
-                        break;
-                }
-                //_clickTime = DateTime.Now;
-                //Timer.StartTimer();
-            }
+                GameboardVM = _gameController.StartGame(newGameView.Difficulty, newGameView.Heigth, newGameView.Width1, newGameView.Mines);
             else return;
         }
     }
