@@ -1,4 +1,5 @@
-﻿using Saper.View;
+﻿using Saper.Model.Skills;
+using Saper.View;
 using Saper.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,10 @@ namespace Saper.Model
         private GameboardModel _gameboard;
         private static GameController _instance;
 
-
+        private Skill _skill1;
+        private Skill _skill2;
+        private bool _skill1Active;
+        private bool _skill2Active;
         
         public GameController()
         {
@@ -26,15 +30,21 @@ namespace Saper.Model
 
             GameRunning = false;
             _timer = new TimerModel();
+
             Instance = this;
         }
 
         public bool GameRunning { get => _gameRunning; private set => _gameRunning = value; }
         public TimerModel Timer { get => _timer; set => _timer = value; }
         public static GameController Instance { get => _instance; private set => _instance = value; }
+        public bool Skill1Active { get => _skill1Active; private set => _skill1Active = value; }
+        public bool Skill2Active { get => _skill2Active; private set => _skill2Active = value; }
 
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
+            _skill1 = new SaveClick();
+            _skill2 = new SaveClick();
+
             GameboardViewModel gvm;
             switch (gameMode)
             {
@@ -60,7 +70,29 @@ namespace Saper.Model
             _gameboardViewModel = gvm;
             _gameboard = gvm.Gameboard;
             GameRunning = true;
+            Timer.StopTimer();
+            Timer.ResetTimer();
+            Skill1Active = false;
+            Skill2Active = false;
             return gvm;
+        }
+
+        public bool ActivateSkill1()
+        {
+            if (_skill1 != null && _skill1.SkillUsed)
+                return false;
+
+            Skill1Active = true;
+            return true;
+        }
+
+        public bool ActivateSkill2()
+        {
+            if (_skill2 != null && _skill2.SkillUsed)
+                return false;
+
+            Skill2Active = true;
+            return true;
         }
 
         public void EndGame() 
@@ -78,7 +110,37 @@ namespace Saper.Model
             if (!Timer.IsRunning)
                 Timer.StartTimer();
 
-            bool bombClicked = _gameboard.FlipCell(x, y);
+            bool bombClicked;
+            if (Skill1Active)
+            {
+                SkillContext sc = new SkillContext()
+                {
+                    x = x,
+                    y = y,
+                    target=_gameboard
+                };
+                _skill1.ActivateSkill(sc);
+                Skill1Active = false;
+                bombClicked = false;
+            }
+            else if (Skill2Active)
+            {
+                SkillContext sc = new SkillContext()
+                {
+                    x = x,
+                    y = y,
+                    target = _gameboard
+                };
+                _skill2.ActivateSkill(sc);
+                Skill2Active = false;
+                bombClicked = false;
+            }
+            else
+            {
+                bombClicked = _gameboard.FlipCell(x, y);
+            }
+
+                
             if (bombClicked)
                 EndGame();
         }

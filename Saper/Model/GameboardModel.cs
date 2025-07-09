@@ -182,6 +182,15 @@ namespace Saper.Model
             CountSurroundingMines();
         }
 
+        public void SaveFlipSingleCell(int x, int y)
+        {
+            Board[x, y].FlipCell();
+            if (Board[x, y].Value == -1)
+                MinesLeft--;
+            else
+                CellsLeft--;
+        }
+
         // return true if clicked bomb
         public bool FlipCell(int x, int y)
         {
