@@ -134,7 +134,12 @@ namespace Saper.ViewModel
             newGameView.ShowDialog();
 
             if (newGameView.DialogResult == true)
+            {
                 GameboardVM = _gameController.StartGame(newGameView.Difficulty, newGameView.Heigth, newGameView.Width1, newGameView.Mines);
+                Skill1Visible = false;
+                Skill2Visible = false;
+            }
+                
             else return;
         }
 
