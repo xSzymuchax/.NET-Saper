@@ -78,7 +78,9 @@ namespace Saper.Model
             if (!Timer.IsRunning)
                 Timer.StartTimer();
 
-            _gameboard.FlipCell(x, y);
+            bool bombClicked = _gameboard.FlipCell(x, y);
+            if (bombClicked)
+                EndGame();
         }
 
         public void FlagCell(int x, int y)

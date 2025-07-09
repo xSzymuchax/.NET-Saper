@@ -182,16 +182,21 @@ namespace Saper.Model
             CountSurroundingMines();
         }
 
-        public void FlipCell(int x, int y)
+        // return true if clicked bomb
+        public bool FlipCell(int x, int y)
         {
-            if (Board[x, y].Value == -1 && !Board[x,y].IsFlagged)
-                GameController.Instance.EndGame();
+            if (Board[x, y].Value == -1 && !Board[x, y].IsFlagged)
+            {
+                Board[x, y].FlipCell();
+                return true;
+            }
+                
 
             if (_firstFlipClick)
             {
                 FirstGameFlip(x, y);
                 FlipCell(x, y);
-                return;
+                return false;
             }
 
             if (!Board[x, y].IsFlagged && !Board[x, y].IsFlipped)
@@ -200,10 +205,10 @@ namespace Saper.Model
                 CellsLeft--;
             }
             else
-                return;
+                return false;
 
             if (Board[x, y].Value != 0)
-                return;
+                return false;
 
             for (int i = x-1; i <= x+1; i++)
             {
@@ -219,7 +224,8 @@ namespace Saper.Model
 
                     FlipCell(i, j);
                 }
-            }   
+            }
+            return false;
         }
 
         public void FlagCell(int x, int y)

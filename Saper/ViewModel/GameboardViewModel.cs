@@ -75,6 +75,9 @@ namespace Saper.ViewModel
         public void FlipCell(int x, int y)
         {
             GameController.Instance.FlipCell(x, y);
+
+            // TODO - update only changed cells (need small refactor)
+
             foreach (var cell in Cells)
             {
                 cell.OnPropertyChanged(nameof(CellViewModel.IsFlipped));
