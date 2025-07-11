@@ -78,7 +78,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Skill 1 -->
-                    <Viewbox Grid.Column="0" Stretch="Uniform" Margin="5">
+                    <Viewbox Grid.Column="0" Stretch="Uniform" Margin="5,25,5,5">
                         <Grid Background="Transparent" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
@@ -127,15 +127,15 @@
                                 </Button.Style>
                             </Button>
 
-                            <Button Content="Activate" 
+                            <Button Content="Change Skill" 
                                     Grid.Row="2"
                                     Height="30"
-                                    Command="{Binding ActivateSkillCommand}">
+                                    Command="">
 
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SkillVisible}" Value="true">
+                                            <DataTrigger Binding="{Binding GameController.GameRunning}" Value="true">
                                                 <Setter Property="Visibility" Value="Hidden" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -153,25 +153,34 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                 
                 
-                    <Button Name="OptionsButton" 
-                            Grid.Row="1" 
-                            Content="Options" 
-                            Style="{StaticResource MainButtonStyle}"
-                            Command="{Binding ShowOptionDialogCommand}"/>
-
                     <Button Name="NewGameButton" 
-                            Grid.Row="2" 
+                            Grid.Row="1" 
                             Content="New Game" 
                             Style="{StaticResource MainButtonStyle}"
                             Command="{Binding StartNewGameCommand}"/>
+
+                    <Button Name="OptionsButton" 
+                            Grid.Row="2" 
+                            Content="Options" 
+                            Style="{StaticResource MainButtonStyle}"
+                            Command="{Binding ShowOptionDialogCommand}"/>
 
                     <Button Name="WatchRecordedGameButton" 
                             Grid.Row="3" 
                             Content="Watch Recorded Game" 
                             Style="{StaticResource MainButtonStyle}" />
+
+
+                    <Button Name="ScoresButton" 
+                            Grid.Row="4" 
+                            Content="Best Scores" 
+                            Style="{StaticResource MainButtonStyle}"
+                            Command=""/>
+
                 </Grid>
                   
             </Grid>

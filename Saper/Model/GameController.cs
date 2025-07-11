@@ -42,7 +42,7 @@ namespace Saper.Model
             Instance = this;
         }
 
-        public bool GameRunning { get => _gameRunning; private set => _gameRunning = value; }
+        public bool GameRunning { get => _gameRunning; private set { _gameRunning = value; OnPropertyChanged(nameof(GameRunning)); } }
         public TimerModel Timer { get => _timer; set => _timer = value; }
         public static GameController Instance { get => _instance; private set => _instance = value; }
         public bool SkillActive { get => _skillActive; private set { _skillActive = value; OnPropertyChanged(nameof(SkillActive)); } }
@@ -57,16 +57,16 @@ namespace Saper.Model
             switch (gameMode)
             {
                 case GameMode.EASY:
-                    gvm = new GameboardViewModel(10, 10, 10) { Timer = Timer };
+                    gvm = new GameboardViewModel(10, 10, 18) { Timer = Timer };
                     break;
                 case GameMode.NORMAL:
                     gvm = new GameboardViewModel(12, 12, 25) { Timer = Timer };
                     break;
                 case GameMode.HARD:
-                    gvm = new GameboardViewModel(15, 15, 60) { Timer = Timer };
+                    gvm = new GameboardViewModel(15, 15, 38) { Timer = Timer };
                     break;
                 case GameMode.EXPERT:
-                    gvm = new GameboardViewModel(20, 20, 100) { Timer = Timer };
+                    gvm = new GameboardViewModel(20, 20, 70) { Timer = Timer };
                     break;
                 case GameMode.CUSTOM:
                     gvm = new GameboardViewModel(height, width, mines) { Timer = Timer };
