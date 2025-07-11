@@ -21,10 +21,8 @@ namespace Saper.Model
         private GameboardModel _gameboard;
         private static GameController _instance;
 
-        private Skill _skill1;
-        private Skill _skill2;
-        private bool _skill1Active;
-        private bool _skill2Active;
+        private Skill _skill;
+        private bool _skillActive;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -47,16 +45,13 @@ namespace Saper.Model
         public bool GameRunning { get => _gameRunning; private set => _gameRunning = value; }
         public TimerModel Timer { get => _timer; set => _timer = value; }
         public static GameController Instance { get => _instance; private set => _instance = value; }
-        public bool Skill1Active { get => _skill1Active; private set { _skill1Active = value; OnPropertyChanged(nameof(Skill1Active)); } }
-        public bool Skill2Active { get => _skill2Active; private set { _skill2Active = value; OnPropertyChanged(nameof(Skill2Active)); } }
+        public bool SkillActive { get => _skillActive; private set { _skillActive = value; OnPropertyChanged(nameof(SkillActive)); } }
 
-        public Skill Skill1 { get => _skill1; set { _skill1 = value; OnPropertyChanged(nameof(Skill1)); } }
-        public Skill Skill2 { get => _skill2; set { _skill2 = value; OnPropertyChanged(nameof(Skill2)); } }
+        public Skill Skill { get => _skill; set { _skill = value; OnPropertyChanged(nameof(Skill)); } }
 
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
-            SetUpSkill1("SaveClick");
-            SetUpSkill2("SaveClick");
+            SetUpSkill("SaveClick");
         
             GameboardViewModel gvm;
             switch (gameMode)
@@ -88,38 +83,21 @@ namespace Saper.Model
             return gvm;
         }
 
-        public void SetUpSkill1(string skillName)
+        public void SetUpSkill(string skillName)
         {
-            Skill1 = SkillGenerator.ReturnSkill(skillName);
-            Skill1Active = false;
-        }
-
-        public void SetUpSkill2(string skillName)
-        {
-            Skill2 = SkillGenerator.ReturnSkill(skillName);
-            Skill2Active = false;
+            Skill = SkillGenerator.ReturnSkill(skillName);
+            SkillActive = false;
         }
 
         public bool ActivateSkill1()
         {
-            if (Skill1 != null && Skill1.SkillUsed)
+            if (Skill != null && Skill.SkillUsed)
                 return false;
 
             Debug.WriteLine("Skill1Active");
-            Skill1Active = true;
+            SkillActive = true;
             return true;
         }
-
-        public bool ActivateSkill2()
-        {
-            if (Skill2 != null && Skill2.SkillUsed)
-                return false;
-
-
-            Skill2Active = true;
-            return true;
-        }
-
         public void EndGame() 
         {
             GameRunning = false;
@@ -136,7 +114,7 @@ namespace Saper.Model
                 Timer.StartTimer();
 
             bool bombClicked;
-            if (Skill1Active)
+            if (SkillActive)
             {
                 SkillContext sc = new SkillContext()
                 {
@@ -144,20 +122,8 @@ namespace Saper.Model
                     y = y,
                     target=_gameboard
                 };
-                Skill1.ActivateSkill(sc);
-                Skill1Active = false;
-                bombClicked = false;
-            }
-            else if (Skill2Active)
-            {
-                SkillContext sc = new SkillContext()
-                {
-                    x = x,
-                    y = y,
-                    target = _gameboard
-                };
-                Skill2.ActivateSkill(sc);
-                Skill2Active = false;
+                Skill.ActivateSkill(sc);
+                SkillActive = false;
                 bombClicked = false;
             }
             else

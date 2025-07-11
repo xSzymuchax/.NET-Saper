@@ -75,13 +75,13 @@
                 <Grid Grid.Row="1" Margin="5" Background="Transparent">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!-- Skill 1 -->
                     <Viewbox Grid.Column="0" Stretch="Uniform" Margin="5">
                         <Grid Background="Transparent" >
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
@@ -97,16 +97,16 @@
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding GameController.Skill1Active}" Value="true">
+                                            <DataTrigger Binding="{Binding GameController.SkillActive}" Value="true">
                                                 <Setter Property="Background" Value="{Binding ColorsModel.SystemColor, Converter={StaticResource ColorConverter}}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                                              
+
                                 <Grid Background="{Binding ColorsModel.SystemColor}">
                                     <Grid.OpacityMask>
-                                        <ImageBrush ImageSource="{Binding GameController.Skill1.SkillImage}" Stretch="Fill" />
+                                        <ImageBrush ImageSource="{Binding GameController.Skill.SkillImage}" Stretch="Fill" />
                                     </Grid.OpacityMask>
                                 </Grid>
                             </Border>
@@ -114,12 +114,28 @@
                             <Button Content="Activate" 
                                     Grid.Row="1"
                                     Height="30"
-                                    Command="{Binding ActivateSkill1Command}">
+                                    Command="{Binding ActivateSkillCommand}">
 
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Skill1Visible}" Value="true">
+                                            <DataTrigger Binding="{Binding SkillVisible}" Value="true">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <Button Content="Activate" 
+                                    Grid.Row="2"
+                                    Height="30"
+                                    Command="{Binding ActivateSkillCommand}">
+
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SkillVisible}" Value="true">
                                                 <Setter Property="Visibility" Value="Hidden" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -128,33 +144,6 @@
                             </Button>
                         </Grid>
                     </Viewbox>
-
-                    <!-- Skill2 -->
-                    <Viewbox Grid.Column="1" Stretch="Uniform" Margin="5">
-                        <Grid Background="Transparent" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <Grid Background="{Binding ColorsModel.SystemColor}" d:Background="#00FF00" Height="100" Width="100" Grid.Row="0"/>
-                            <Button Content="Activate" 
-                                    Grid.Row="1"
-                                    Height="30"
-                                    Command="{Binding ActivateSkill2Command}" >
-
-                                <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Skill2Visible}" Value="true">
-                                                <Setter Property="Visibility" Value="Hidden" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                
-                            </Button>
-                        </Grid>
-                    </Viewbox>                
                 </Grid>
             
                 <!-- Game Menu -->
