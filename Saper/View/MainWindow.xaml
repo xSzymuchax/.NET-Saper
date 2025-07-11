@@ -85,7 +85,32 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            <Grid Background="{Binding ColorsModel.SystemColor}" d:Background="#00FF00" Height="100" Width="100" Grid.Row="0"/>
+                            <Border BorderBrush="{Binding ColorsModel.SystemColor}" d:BorderBrush="#00FF00" 
+                                    Height="100" 
+                                    Width="100" 
+                                    Grid.Row="0" 
+                                    BorderThickness="2"
+                                    CornerRadius="10"
+                                    d:Background="#008800">
+
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding GameController.Skill1Active}" Value="true">
+                                                <Setter Property="Background" Value="{Binding ColorsModel.SystemColor, Converter={StaticResource ColorConverter}}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                                              
+                                <Grid Background="{Binding ColorsModel.SystemColor}">
+                                    <Grid.OpacityMask>
+                                        <ImageBrush ImageSource="/Resource/mine.png" Stretch="Fill" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Border>
+
                             <Button Content="Activate" 
                                     Grid.Row="1"
                                     Height="30"

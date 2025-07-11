@@ -106,14 +106,14 @@ namespace Saper.ViewModel
         public bool Skill2Visible { get => _skill2Visible; set { _skill2Visible = value; OnPropertyChanged(nameof(Skill2Visible)); } }
         public bool Skill1Visible { get => _skill1Visible; set { _skill1Visible = value; OnPropertyChanged(nameof(Skill1Visible)); } }
 
-
+        public GameController GameController { get => _gameController; private set => _gameController = value; }
 
         public MainViewModel()
         {
             new ColorsModel();
             new Options();
-            _gameController = new GameController();
-            Timer = _gameController.Timer;
+            GameController = new GameController();
+            Timer = GameController.Timer;
             
             StartNewGameCommand = new RelayCommand(StartNewGame, o => true);
             ShowOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
@@ -135,7 +135,7 @@ namespace Saper.ViewModel
 
             if (newGameView.DialogResult == true)
             {
-                GameboardVM = _gameController.StartGame(newGameView.Difficulty, newGameView.Heigth, newGameView.Width1, newGameView.Mines);
+                GameboardVM = GameController.StartGame(newGameView.Difficulty, newGameView.Heigth, newGameView.Width1, newGameView.Mines);
                 Skill1Visible = false;
                 Skill2Visible = false;
             }
@@ -145,12 +145,12 @@ namespace Saper.ViewModel
 
         public void ActivateSkill1(object param)
         {
-            Skill1Visible = _gameController.ActivateSkill1();
+            Skill1Visible = GameController.ActivateSkill1();
         }
 
         public void ActivateSkill2(object param)
         {
-            Skill2Visible = _gameController.ActivateSkill2();
+            Skill2Visible = GameController.ActivateSkill2();
         }
     }
 }

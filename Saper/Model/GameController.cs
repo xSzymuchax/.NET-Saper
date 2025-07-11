@@ -3,14 +3,17 @@ using Saper.View;
 using Saper.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Saper.Model
 {
-    public class GameController
+    public class GameController : INotifyPropertyChanged
     {
         private bool _gameRunning;
         private TimerModel _timer;
@@ -22,7 +25,14 @@ namespace Saper.Model
         private Skill _skill2;
         private bool _skill1Active;
         private bool _skill2Active;
-        
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public GameController()
         {
             if (_instance != null)
@@ -37,8 +47,8 @@ namespace Saper.Model
         public bool GameRunning { get => _gameRunning; private set => _gameRunning = value; }
         public TimerModel Timer { get => _timer; set => _timer = value; }
         public static GameController Instance { get => _instance; private set => _instance = value; }
-        public bool Skill1Active { get => _skill1Active; private set => _skill1Active = value; }
-        public bool Skill2Active { get => _skill2Active; private set => _skill2Active = value; }
+        public bool Skill1Active { get => _skill1Active; private set { _skill1Active = value; OnPropertyChanged(nameof(Skill1Active)); } }
+        public bool Skill2Active { get => _skill2Active; private set { _skill2Active = value; OnPropertyChanged(nameof(Skill2Active)); } }
 
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
@@ -82,6 +92,7 @@ namespace Saper.Model
             if (_skill1 != null && _skill1.SkillUsed)
                 return false;
 
+            Debug.WriteLine("Skill1Active");
             Skill1Active = true;
             return true;
         }
@@ -90,6 +101,7 @@ namespace Saper.Model
         {
             if (_skill2 != null && _skill2.SkillUsed)
                 return false;
+
 
             Skill2Active = true;
             return true;
