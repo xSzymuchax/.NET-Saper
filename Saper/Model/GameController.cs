@@ -55,9 +55,9 @@ namespace Saper.Model
 
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
-            Skill1 = new SaveClick();
-            Skill2 = new SaveClick();
-
+            SetUpSkill1("SaveClick");
+            SetUpSkill2("SaveClick");
+        
             GameboardViewModel gvm;
             switch (gameMode)
             {
@@ -85,9 +85,19 @@ namespace Saper.Model
             GameRunning = true;
             Timer.StopTimer();
             Timer.ResetTimer();
-            Skill1Active = false;
-            Skill2Active = false;
             return gvm;
+        }
+
+        public void SetUpSkill1(string skillName)
+        {
+            Skill1 = SkillGenerator.ReturnSkill(skillName);
+            Skill1Active = false;
+        }
+
+        public void SetUpSkill2(string skillName)
+        {
+            Skill2 = SkillGenerator.ReturnSkill(skillName);
+            Skill2Active = false;
         }
 
         public bool ActivateSkill1()
