@@ -21,7 +21,7 @@
   <ItemGroup>
     <Resource Include="Resource\flag.png" />
     <Resource Include="Resource\mine.png" />
-    <Resource Include="Resource\safeclick.png" />
+    <Resource Include="Resource\SkillImages\safeclick.png" />
   </ItemGroup>
 
 </Project>

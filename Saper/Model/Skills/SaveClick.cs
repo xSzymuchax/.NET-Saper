@@ -8,6 +8,14 @@ namespace Saper.Model.Skills
 {
     public class SaveClick : Skill
     {
+        
+        public SaveClick()
+        {
+            Description = "Makes your next flip save, disarms the bomb.";
+            SkillName = "SaveClick";
+            SkillImage = "/Resource/SkillImages/safeclick.png";
+        }
+
         protected override void ExecuteSkill(SkillContext context)
         {
             if (context.target == null)

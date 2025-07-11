@@ -106,7 +106,7 @@
                                                               
                                 <Grid Background="{Binding ColorsModel.SystemColor}">
                                     <Grid.OpacityMask>
-                                        <ImageBrush ImageSource="/Resource/safeclick.png" Stretch="Fill" />
+                                        <ImageBrush ImageSource="{Binding GameController.Skill1.SkillImage}" Stretch="Fill" />
                                     </Grid.OpacityMask>
                                 </Grid>
                             </Border>

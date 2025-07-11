@@ -50,10 +50,13 @@ namespace Saper.Model
         public bool Skill1Active { get => _skill1Active; private set { _skill1Active = value; OnPropertyChanged(nameof(Skill1Active)); } }
         public bool Skill2Active { get => _skill2Active; private set { _skill2Active = value; OnPropertyChanged(nameof(Skill2Active)); } }
 
+        public Skill Skill1 { get => _skill1; set { _skill1 = value; OnPropertyChanged(nameof(Skill1)); } }
+        public Skill Skill2 { get => _skill2; set { _skill2 = value; OnPropertyChanged(nameof(Skill2)); } }
+
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
-            _skill1 = new SaveClick();
-            _skill2 = new SaveClick();
+            Skill1 = new SaveClick();
+            Skill2 = new SaveClick();
 
             GameboardViewModel gvm;
             switch (gameMode)
@@ -89,7 +92,7 @@ namespace Saper.Model
 
         public bool ActivateSkill1()
         {
-            if (_skill1 != null && _skill1.SkillUsed)
+            if (Skill1 != null && Skill1.SkillUsed)
                 return false;
 
             Debug.WriteLine("Skill1Active");
@@ -99,7 +102,7 @@ namespace Saper.Model
 
         public bool ActivateSkill2()
         {
-            if (_skill2 != null && _skill2.SkillUsed)
+            if (Skill2 != null && Skill2.SkillUsed)
                 return false;
 
 
@@ -131,7 +134,7 @@ namespace Saper.Model
                     y = y,
                     target=_gameboard
                 };
-                _skill1.ActivateSkill(sc);
+                Skill1.ActivateSkill(sc);
                 Skill1Active = false;
                 bombClicked = false;
             }
@@ -143,7 +146,7 @@ namespace Saper.Model
                     y = y,
                     target = _gameboard
                 };
-                _skill2.ActivateSkill(sc);
+                Skill2.ActivateSkill(sc);
                 Skill2Active = false;
                 bombClicked = false;
             }
