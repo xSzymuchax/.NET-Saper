@@ -13,9 +13,24 @@ using System.Windows.Input;
 
 namespace Saper.ViewModel
 {
+    public class SkillWithColor
+    {
+        private Skill _skill;
+        private ColorsModel _colorsModel;
+
+        public SkillWithColor(Skill skill, ColorsModel colorsModel)
+        {
+            Skill = skill;
+            ColorsModel = colorsModel;
+        }
+
+        public ColorsModel ColorsModel { get => _colorsModel; set => _colorsModel = value; }
+        public Skill Skill { get => _skill; set => _skill = value; }
+    }
+
     public class ChangeSkillViewModel
     {
-        private ObservableCollection<Skill> _skillsList;
+        private ObservableCollection<SkillWithColor> _skillsList;
 
         private string _selectedSkillName;
         private ICommand _selectCommand;
@@ -24,17 +39,17 @@ namespace Saper.ViewModel
 
         public string SelectedSkillName { get => _selectedSkillName; private set => _selectedSkillName = value; }
         public ICommand SelectCommand { get => _selectCommand; set => _selectCommand = value; }
-        public ObservableCollection<Skill> SkillsList { get => _skillsList; private set => _skillsList = value; }
+        public ObservableCollection<SkillWithColor> SkillsList { get => _skillsList; private set => _skillsList = value; }
     
         public ChangeSkillViewModel(Action closeAction)
         {
             _closeView = closeAction;
             
             List<Skill> skills = SkillGenerator.ReturnAllSkills();
-            _skillsList = new ObservableCollection<Skill>();
+            _skillsList = new ObservableCollection<SkillWithColor>();
 
             foreach (var s in skills)
-                SkillsList.Add(s);
+                SkillsList.Add(new(s, ColorsModel));
 
             SelectCommand = new RelayCommand(Select, o => true);
         }
