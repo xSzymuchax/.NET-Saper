@@ -1,4 +1,5 @@
 ﻿using Saper.Command;
+using Saper.Model;
 using Saper.Model.Skills;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Saper.ViewModel
         private string _selectedSkillName;
         private ICommand _selectCommand;
         private Action _closeView;
+        public ColorsModel ColorsModel {get => ColorsModel.Instance; }
 
         public string SelectedSkillName { get => _selectedSkillName; private set => _selectedSkillName = value; }
         public ICommand SelectCommand { get => _selectCommand; set => _selectCommand = value; }
