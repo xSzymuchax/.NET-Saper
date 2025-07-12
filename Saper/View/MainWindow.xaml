@@ -130,7 +130,7 @@
                             <Button Content="Change Skill" 
                                     Grid.Row="2"
                                     Height="30"
-                                    Command="">
+                                    Command="{Binding ChangeSkillCommand}">
 
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">

@@ -32,6 +32,7 @@ namespace Saper.ViewModel
         private ICommand _startNewGameCommand;
         private ICommand _showOptionDialogCommand;
         private ICommand _activateSkill;
+        private ICommand _changeSkill;
         public ICommand StartNewGameCommand { get => _startNewGameCommand; set => _startNewGameCommand = value; }
         public ICommand ShowOptionDialogCommand { get => _showOptionDialogCommand; set => _showOptionDialogCommand = value; }
 
@@ -103,6 +104,7 @@ namespace Saper.ViewModel
         public bool SkillVisible { get => _skillVisible; set { _skillVisible = value; OnPropertyChanged(nameof(SkillVisible)); } }
 
         public GameController GameController { get => _gameController; private set => _gameController = value; }
+        public ICommand ChangeSkillCommand { get => _changeSkill; set => _changeSkill = value; }
 
         public MainViewModel()
         {
@@ -114,8 +116,23 @@ namespace Saper.ViewModel
             StartNewGameCommand = new RelayCommand(StartNewGame, o => true);
             ShowOptionDialogCommand = new RelayCommand(ChangeOptions, o => true);
             ActivateSkillCommand = new RelayCommand(ActivateSkill, o => true);
+            ChangeSkillCommand = new RelayCommand(ChangeSkill, o => true);
         }
         
+        public void ChangeSkill(object param)
+        {
+            string skillname = "";
+
+            ChangeSkillView changeSkillView = new ChangeSkillView();
+            //ChangeSkillViewModel changeSkillViewModel = new ChangeSkillViewModel(() => changeSkillView.Close());
+            //changeSkillView.DataContext = changeSkillViewModel;
+            changeSkillView.ShowDialog();
+
+            //if (changeSkillView.Skil == true)
+            //    GameController.SetUpSkill(changeSkillViewModel.SelectedSkillName);
+
+        }
+
         public void ChangeOptions(object param)
         {
             OptionsView optionsView = new OptionsView();

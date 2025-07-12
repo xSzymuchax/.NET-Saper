@@ -20,5 +20,14 @@ namespace Saper.Model.Skills
             // default skill
             return new SaveClick();
         }
+
+        public static List<Skill> ReturnAllSkills()
+        {
+            List<Skill> result = new List<Skill>();
+            
+            result.Add(new SaveClick());
+
+            return result;
+        }
     }
 }
