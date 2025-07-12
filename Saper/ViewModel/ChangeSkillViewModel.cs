@@ -50,7 +50,7 @@ namespace Saper.ViewModel
 
             foreach (var s in skills)
                 SkillsList.Add(new(s, ColorsModel));
-
+            
             SelectCommand = new RelayCommand(Select, o => true);
         }
 
