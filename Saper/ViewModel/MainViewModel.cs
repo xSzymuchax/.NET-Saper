@@ -121,15 +121,20 @@ namespace Saper.ViewModel
         
         public void ChangeSkill(object param)
         {
-            string skillname = "";
-
             ChangeSkillView changeSkillView = new ChangeSkillView();
-            //ChangeSkillViewModel changeSkillViewModel = new ChangeSkillViewModel(() => changeSkillView.Close());
-            //changeSkillView.DataContext = changeSkillViewModel;
             changeSkillView.ShowDialog();
 
-            //if (changeSkillView.Skil == true)
-            //    GameController.SetUpSkill(changeSkillViewModel.SelectedSkillName);
+            if (changeSkillView.DialogResult == true)
+            {
+                if (changeSkillView.DataContext is ChangeSkillViewModel csvm)
+                {
+                    GameController.SetUpSkill(csvm.SelectedSkillName);
+                    Debug.WriteLine($"JEST! -> {csvm.SelectedSkillName}");
+                }
+                else
+                    Debug.WriteLine($"NIET!");
+            }
+                
 
         }
 

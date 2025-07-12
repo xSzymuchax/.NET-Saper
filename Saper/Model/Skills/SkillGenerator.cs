@@ -14,7 +14,8 @@ namespace Saper.Model.Skills
             {
                 case "SaveClick":
                     return new SaveClick();
-
+                case "Test":
+                    return new TestSkill();
             }
 
             // default skill
@@ -26,6 +27,7 @@ namespace Saper.Model.Skills
             List<Skill> result = new List<Skill>();
             
             result.Add(new SaveClick());
+            result.Add(new TestSkill());
 
             return result;
         }
