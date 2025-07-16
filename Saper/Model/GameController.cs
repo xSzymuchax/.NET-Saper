@@ -109,7 +109,7 @@ namespace Saper.Model
                     x = -1,
                     y = -1
                 });
-                return false;
+                return true;
             }
 
             return true;
@@ -119,6 +119,15 @@ namespace Saper.Model
             GameRunning = false;
             Timer.StopTimer();
             //MessageBox.Show("boom");
+        }
+
+        public void WinGame()
+        {
+            GameRunning = false;
+            Timer.StopTimer();
+            MessageBox.Show("You Win!");
+
+            // TODO - check time and if good, save
         }
 
         public void FlipCell(int x, int y)
@@ -150,6 +159,9 @@ namespace Saper.Model
                 
             if (bombClicked)
                 EndGame();
+
+            if (_gameboard.CellsLeft == 0)
+                WinGame();
         }
 
         public void FlagCell(int x, int y)
