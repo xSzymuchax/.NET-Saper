@@ -70,7 +70,7 @@ namespace Saper.ViewModel
                 if (!_cell.IsFlipped)
                 {
                     _cell.IsFlagged = !_cell.IsFlagged;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsFlagged));
                 }
                     
             }
@@ -85,12 +85,19 @@ namespace Saper.ViewModel
                 if (!_cell.IsFlagged && !_cell.IsFlipped)
                 {
                     _cell.IsFlipped = true;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsFlipped));
                 }
             }
         }
 
-
+        public void Notify()
+        {
+            OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(HasMine));
+            OnPropertyChanged(nameof(HasCounter));
+            OnPropertyChanged(nameof(IsFlagged));
+            OnPropertyChanged(nameof(IsFlipped));
+        }
 
         public CellViewModel(GameboardViewModel gameboardViewModel, int x, int y, CellModel cell)
         {
@@ -109,6 +116,15 @@ namespace Saper.ViewModel
                     OnPropertyChanged(nameof(HasMine));
                     OnPropertyChanged(nameof(HasCounter));
                 }
+                else if (e.PropertyName == nameof(_cell.IsFlagged))
+                {
+                    OnPropertyChanged(nameof(IsFlagged));
+                }
+                else if (e.PropertyName == nameof(_cell.IsFlipped))
+                {
+                    OnPropertyChanged(nameof(IsFlipped));
+                }
+
             };
 
             FlipCommand = new RelayCommand(FlipCell, o => true);

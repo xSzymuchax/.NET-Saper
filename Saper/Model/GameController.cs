@@ -23,6 +23,7 @@ namespace Saper.Model
 
         private Skill _skill;
         private bool _skillActive;
+        private string _skillName;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -39,6 +40,7 @@ namespace Saper.Model
             GameRunning = false;
             _timer = new TimerModel();
 
+            SetUpSkill("No Skill");
             Instance = this;
         }
 
@@ -51,8 +53,6 @@ namespace Saper.Model
 
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
-            SetUpSkill("SaveClick");
-        
             GameboardViewModel gvm;
             switch (gameMode)
             {
@@ -80,11 +80,13 @@ namespace Saper.Model
             GameRunning = true;
             Timer.StopTimer();
             Timer.ResetTimer();
+            SetUpSkill(_skillName);
             return gvm;
         }
 
         public void SetUpSkill(string skillName)
         {
+            _skillName = skillName;
             Skill = SkillGenerator.ReturnSkill(skillName);
             SkillActive = false;
         }
@@ -94,8 +96,22 @@ namespace Saper.Model
             if (Skill != null && Skill.SkillUsed)
                 return false;
 
-            Debug.WriteLine("Skill1Active");
+            Debug.WriteLine($"Skill1Active - hash: {_gameboard.GetHashCode()}");
             SkillActive = true;
+
+            // if instant skill
+            if (Skill.IsInstant)
+            {
+                SkillActive = false;
+                Skill.ActivateSkill(new SkillContext()
+                {
+                    target = this._gameboard,
+                    x = -1,
+                    y = -1
+                });
+                return false;
+            }
+
             return true;
         }
         public void EndGame() 

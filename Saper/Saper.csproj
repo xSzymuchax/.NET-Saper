@@ -12,6 +12,8 @@
     <None Remove="Resource\flag.png" />
     <None Remove="Resource\mine.png" />
     <None Remove="Resource\safeclick.png" />
+    <None Remove="Resource\SkillImages\noskill.png" />
+    <None Remove="Resource\SkillImages\radar.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,9 @@
   <ItemGroup>
     <Resource Include="Resource\flag.png" />
     <Resource Include="Resource\mine.png" />
+    <Resource Include="Resource\SkillImages\noskill.png" />
+    <Resource Include="Resource\SkillImages\radar.png" />
+    <Resource Include="Resource\SkillImages\revealrandommines.png" />
     <Resource Include="Resource\SkillImages\safeclick.png" />
   </ItemGroup>
 

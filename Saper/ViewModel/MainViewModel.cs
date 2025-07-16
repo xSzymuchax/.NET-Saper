@@ -134,8 +134,6 @@ namespace Saper.ViewModel
                 else
                     Debug.WriteLine($"NIET!");
             }
-                
-
         }
 
         public void ChangeOptions(object param)

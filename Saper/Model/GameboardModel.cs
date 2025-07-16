@@ -158,6 +158,15 @@ namespace Saper.Model
 
         private void FirstGameFlip(int x, int y)
         {
+            Debug.WriteLine("firstGameFlip1");
+
+            if (x < 0 || x >= Width)
+                return;
+
+            if (y < 0 || y >= Height)
+                return;
+
+            Debug.WriteLine("firstGameFlip2");
             int removedMines = 0;
             _firstFlipClick = false;
             int x2, y2;
@@ -184,6 +193,12 @@ namespace Saper.Model
 
         public void SaveFlipSingleCell(int x, int y)
         {
+            if (x < 0 || x >= Width)
+                return;
+
+            if (y < 0 || y >= Height)
+                return;
+
             Board[x, y].FlipCell();
             if (Board[x, y].Value == -1)
                 MinesLeft--;
@@ -194,18 +209,23 @@ namespace Saper.Model
         // return true if clicked bomb
         public bool FlipCell(int x, int y)
         {
-            if (Board[x, y].Value == -1 && !Board[x, y].IsFlagged)
-            {
-                Board[x, y].FlipCell();
-                return true;
-            }
-                
+            if (x < 0 || x >= Width)
+                return false;
+
+            if (y < 0 || y >= Height)
+                return false;
 
             if (_firstFlipClick)
             {
                 FirstGameFlip(x, y);
                 FlipCell(x, y);
                 return false;
+            }
+
+            if (Board[x, y].Value == -1 && !Board[x, y].IsFlagged)
+            {
+                Board[x, y].FlipCell();
+                return true;
             }
 
             if (!Board[x, y].IsFlagged && !Board[x, y].IsFlipped)
@@ -239,6 +259,12 @@ namespace Saper.Model
 
         public void FlagCell(int x, int y)
         {
+            if (x < 0 || x >= Width)
+                return;
+
+            if (y < 0 || y >= Height)
+                return;
+
             if (!Board[x, y].IsFlipped)
             {
                 Board[x, y].FlagCell();
@@ -249,5 +275,21 @@ namespace Saper.Model
             }
         }
 
+        public void FlipOrFlagCell(int x, int y)
+        {
+            if (x < 0 || x >= Width)
+                return;
+
+            if (y < 0 || y >= Height)
+                return;
+            
+            if (Board[x, y].Value != -1 && !Board[x, y].IsFlipped)
+                FlipCell(x, y);
+
+            else if (Board[x, y].Value == -1 && !Board[x, y].IsFlagged)
+            {
+                FlagCell(x, y);
+            }
+        }
     }
 }

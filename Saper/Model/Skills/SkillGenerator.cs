@@ -8,26 +8,31 @@ namespace Saper.Model.Skills
 {
     public static class SkillGenerator
     {
-        public static Skill ReturnSkill(string skillName = "SaveClick")
+        public static Skill ReturnSkill(string skillName = "Save Click")
         {
             switch (skillName)
             {
-                case "SaveClick":
+                case "Save Click":
                     return new SaveClick();
-                case "Test":
-                    return new TestSkill();
+                case "No Skill":
+                    return new NoSkill();
+                case "Reveal Random Mines":
+                    return new RevealRandomMinesSkill();
+                case "Radar":
+                    return new RadarSkill();
+                default:
+                    return new NoSkill();
             }
-
-            // default skill
-            return new SaveClick();
         }
 
         public static List<Skill> ReturnAllSkills()
         {
             List<Skill> result = new List<Skill>();
-            
+
+            result.Add(new NoSkill());
             result.Add(new SaveClick());
-            result.Add(new TestSkill());
+            result.Add(new RadarSkill());
+            result.Add(new RevealRandomMinesSkill());
 
             return result;
         }

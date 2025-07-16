@@ -20,7 +20,7 @@ namespace Saper.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public bool IsFlagged {get { return _isFlagged; }  set { _isFlagged = value; }}
+        public bool IsFlagged {get { return _isFlagged; }  set { _isFlagged = value; OnPropertyChanged(nameof(IsFlagged)); }}
         public int Value 
         { 
             get => _value;
