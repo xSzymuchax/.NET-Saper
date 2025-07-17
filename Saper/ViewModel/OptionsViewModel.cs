@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using Saper.Command;
 using Saper.Model;
 
@@ -83,8 +84,15 @@ namespace Saper.ViewModel
         
         private void ChangeRecordDestination(object param)
         {
-            //TODO okienko z wyborem miejsca
-            Options.SaveOptions();
+            OpenFolderDialog opf = new OpenFolderDialog();
+            opf.Multiselect = false;
+            bool? result = opf.ShowDialog();
+
+            if (result != null && result == true)
+            {
+                Options.RecordingPath = opf.FolderName;
+                Options.SaveOptions();
+            }                   
         }
 
     }

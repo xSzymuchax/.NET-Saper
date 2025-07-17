@@ -50,7 +50,7 @@ namespace Saper.Model.Skills
                 if (draws >= foundCells)
                     draws = foundCells;
 
-                Random rand = new Random();
+                Random rand = new Random(GameController.Instance.Seed);
 
                 while ( draws > 0)
                 {

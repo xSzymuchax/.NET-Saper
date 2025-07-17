@@ -1,4 +1,5 @@
-﻿using Saper.Command;
+﻿using Microsoft.Win32;
+using Saper.Command;
 using Saper.Model;
 using Saper.View;
 using System;
@@ -105,7 +106,7 @@ namespace Saper.ViewModel
 
         public GameController GameController { get => _gameController; private set => _gameController = value; }
         public ICommand ChangeSkillCommand { get => _changeSkill; set => _changeSkill = value; }
-
+        
         public MainViewModel()
         {
             new ColorsModel();

@@ -20,6 +20,7 @@ namespace Saper.Model
         private GameboardViewModel _gameboardViewModel;
         private GameboardModel _gameboard;
         private static GameController _instance;
+        private int _seed;
 
         private Skill _skill;
         private bool _skillActive;
@@ -51,13 +52,17 @@ namespace Saper.Model
 
         public Skill Skill { get => _skill; set { _skill = value; OnPropertyChanged(nameof(Skill)); } }
 
+        public int Seed { get => _seed; private set =>  _seed = value; }
+
         public GameboardViewModel StartGame(GameMode gameMode, int height=0, int width=0, int mines=0)
         {
             GameboardViewModel gvm;
+            Seed = (int)DateTime.Now.Ticks;
+            GameRecorder.StartRecord(Seed);
             switch (gameMode)
             {
                 case GameMode.EASY:
-                    gvm = new GameboardViewModel(10, 10, 18) { Timer = Timer };
+                    gvm = new GameboardViewModel(5, 5, 1) { Timer = Timer };
                     break;
                 case GameMode.NORMAL:
                     gvm = new GameboardViewModel(12, 12, 25) { Timer = Timer };
@@ -98,6 +103,7 @@ namespace Saper.Model
 
             Debug.WriteLine($"Skill1Active - hash: {_gameboard.GetHashCode()}");
             SkillActive = true;
+            GameRecorder.AddSkillUsed(Skill.SkillName, Timer.GameTime);
 
             // if instant skill
             if (Skill.IsInstant)
@@ -114,11 +120,31 @@ namespace Saper.Model
 
             return true;
         }
-        public void EndGame() 
+
+        public void CheckEnd(bool bombClicked)
+        {
+            bool gameEnded = false;
+            if (bombClicked)
+            {
+                LoseGame();
+                gameEnded = true;
+            }
+                
+            if (_gameboard.CellsLeft == 0)
+            {
+                WinGame();
+                gameEnded = true;
+            }
+
+            if (gameEnded && Options.Instance.Recording)
+                GameRecorder.SaveRecord();
+        }
+
+        public void LoseGame() 
         {
             GameRunning = false;
             Timer.StopTimer();
-            //MessageBox.Show("boom");
+            MessageBox.Show("boom");
         }
 
         public void WinGame()
@@ -156,12 +182,8 @@ namespace Saper.Model
                 bombClicked = _gameboard.FlipCell(x, y);
             }
 
-                
-            if (bombClicked)
-                EndGame();
-
-            if (_gameboard.CellsLeft == 0)
-                WinGame();
+            GameRecorder.AddClick(x, y, Timer.GameTime);
+            CheckEnd(bombClicked);
         }
 
         public void FlagCell(int x, int y)
@@ -169,6 +191,7 @@ namespace Saper.Model
             if (!GameRunning)
                 return;
 
+            GameRecorder.AddFlag(x, y, Timer.GameTime);
             _gameboard.FlagCell(x, y);
         }
     }

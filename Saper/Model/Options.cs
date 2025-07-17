@@ -44,7 +44,7 @@ namespace Saper.Model
         private void DefaultOptions()
         {
             _recording = true;
-            _recordingPath = "/minesweeperRecordings";
+            _recordingPath = AppDomain.CurrentDomain.BaseDirectory;
             _sound = true;
             SaveOptions();
         }

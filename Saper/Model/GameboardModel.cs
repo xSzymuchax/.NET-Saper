@@ -97,7 +97,7 @@ namespace Saper.Model
 
         public void GenerateMines(int mines_count)
         {
-            Random random = new Random();
+            Random random = new Random(GameController.Instance.Seed);
             int mines= mines_count;
             while (mines > 0)
             {

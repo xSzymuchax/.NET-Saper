@@ -12,7 +12,7 @@ namespace Saper.Model.Skills
         private int _radarRange = 1;
         public RadarSkill()
         {
-            Description = $"This skill discovers the {_radarRange}x{_radarRange} zone and marks the mines.";
+            Description = $"This skill discovers the {1 + _radarRange * 2}x{1 + _radarRange * 2} zone and marks the mines.";
             SkillImage = "/Resource/SkillImages/radar.png";
             SkillName = "Radar";
         }
